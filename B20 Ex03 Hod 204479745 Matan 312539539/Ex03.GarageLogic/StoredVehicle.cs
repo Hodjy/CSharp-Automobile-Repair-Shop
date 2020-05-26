@@ -1,8 +1,8 @@
 ﻿namespace Ex03.GarageLogic
 {
-    public class StoredVehicleDetails
+    public class StoredVehicle
     {
-        private Vehicle       m_StoredVehicle;
+        private Vehicle       m_Vehicle;
         private string        m_OwnerName;
         private string        m_OwnerPhone;
         private eVehicleState m_VehicleState;
@@ -14,11 +14,11 @@
             Paid,
         }
 
-        public Vehicle StoredVehicle
+        public Vehicle Vehicle
         {
             get
             {
-                return m_StoredVehicle;
+                return m_Vehicle;
             }
         }
 
