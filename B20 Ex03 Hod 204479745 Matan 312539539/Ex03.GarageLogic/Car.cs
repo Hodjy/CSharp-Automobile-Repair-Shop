@@ -30,6 +30,10 @@
             {
                 return m_CarColor;
             }
+            set
+            {
+                m_CarColor = value;
+            }
         }
 
         public enum eColor

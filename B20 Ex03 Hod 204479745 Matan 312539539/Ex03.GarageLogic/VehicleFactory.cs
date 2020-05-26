@@ -4,7 +4,7 @@
     {
         public static Vehicle CreateVehicle(eVehicleType i_VehicleType, eEngineType i_EngineType)
         {
-            Vehicle createdVehicle;
+            Vehicle createdVehicle = null;
             switch(i_VehicleType)
             {
                 case eVehicleType.Car:
@@ -17,6 +17,8 @@
                     createdVehicle = createTruck(i_EngineType);
                     break;
             }
+
+            return createdVehicle;
         }
 
         private Vehicle createCar(eEngineType i_EngineType)
