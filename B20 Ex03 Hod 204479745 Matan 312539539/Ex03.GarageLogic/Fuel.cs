@@ -1,6 +1,6 @@
 ﻿namespace Ex03.GarageLogic
 {
-    class Fuel
+    class Fuel : Engine
     {
         public enum eFuelType
         {

@@ -1,10 +1,10 @@
 ﻿namespace Ex03.GarageLogic
 {
-    class MotorBike
+    class MotorBike : Vehicle
     {
         int m_EngineVolume;
 
-        public enum eLicenceType
+        public enum eLicenseType
         {
             A,
             A1,

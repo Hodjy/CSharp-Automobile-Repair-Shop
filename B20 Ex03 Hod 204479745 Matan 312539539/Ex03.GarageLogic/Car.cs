@@ -1,6 +1,6 @@
 ﻿namespace Ex03.GarageLogic
 {
-    class Car
+    class Car : Vehicle
     {
         int m_AmountOfDoors;
 
