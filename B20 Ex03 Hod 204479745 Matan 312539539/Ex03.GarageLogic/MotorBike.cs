@@ -18,6 +18,10 @@
             {
                 return m_License;
             }
+            set
+            {
+                m_License = value;
+            }
         }
 
         public int EngineVolume
@@ -25,6 +29,10 @@
             get
             {
                 return m_EngineVolume;
+            }
+            set
+            {
+                m_EngineVolume = value;
             }
         }
 

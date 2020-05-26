@@ -17,7 +17,6 @@
             m_Engine = i_Engine;
             m_CurrentEnergyPercent = (m_Engine.CurrentEnergy * 100) / m_Engine.MaxEnergy; 
             m_Wheels = new List<Wheel>(i_AmountOfWheels);
-
         }
 
         public string ID
@@ -52,11 +51,24 @@
             }
         }
 
-        public void setWheels(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
+        public void updateCurrentEnergyPercent()
         {
-            for (int i = 0; i<m_Wheels.Capacity; i++)
+            m_CurrentEnergyPercent = (m_Engine.CurrentEnergy * 100) / m_Engine.MaxEnergy;
+        }
+
+        public void InitializeWheels(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
+        {
+            for (int i = 0 ; i < m_Wheels.Capacity ; i++)
             {
-                m_Wheels.Add(new Wheel(i_ManufacturerName, i_CurrentAirPressure, i_MaxAirPressure);
+                m_Wheels.Add(new Wheel(i_ManufacturerName, i_CurrentAirPressure, i_MaxAirPressure));
+            }
+        }
+
+        public void InflateWheels(float i_AmountToInflate)
+        {
+            foreach (Wheel wheel in m_Wheels)
+            {
+                wheel.Inflate(i_AmountToInflate);
             }
         }
 
