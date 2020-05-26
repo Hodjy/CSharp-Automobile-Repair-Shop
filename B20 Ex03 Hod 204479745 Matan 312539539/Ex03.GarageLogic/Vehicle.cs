@@ -56,7 +56,7 @@
         {
             get
             {
-                return m_Wheels.Length;
+                return m_Wheels.Count;
             }
         }
     }
