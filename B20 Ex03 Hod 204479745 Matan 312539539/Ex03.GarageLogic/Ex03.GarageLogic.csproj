@@ -39,8 +39,9 @@
     <Compile Include="ElectricEngine.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="FuelEngine.cs" />
+    <Compile Include="Garage.cs" />
     <Compile Include="MotorBike.cs" />
-    <Compile Include="StoredVehicleDetails.cs" />
+    <Compile Include="StoredVehicle.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="VehicleFactory.cs" />
