@@ -7,6 +7,13 @@
         private string        m_OwnerPhone;
         private eVehicleState m_VehicleState;
 
+        public StoredVehicle(Vehicle i_VehicleToStore, string i_OwnerName, string i_OwnerPhone)
+        {
+            m_Vehicle = i_VehicleToStore;
+            m_OwnerName = i_OwnerName;
+            m_OwnerPhone = i_OwnerPhone;
+        }
+
         public enum eVehicleState
         {
             InRepair,
