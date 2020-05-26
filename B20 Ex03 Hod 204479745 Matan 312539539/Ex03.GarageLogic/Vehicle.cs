@@ -52,6 +52,14 @@
             }
         }
 
+        public void setWheels(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
+        {
+            for (int i = 0; i<m_Wheels.Capacity; i++)
+            {
+                m_Wheels.Add(new Wheel(i_ManufacturerName, i_CurrentAirPressure, i_MaxAirPressure);
+            }
+        }
+
         public int AmountOfWheels
         {
             get

@@ -13,6 +13,30 @@
             r_MaxAirPressure = i_MaxAirPressure;
         }
 
+        public string ManufacturerName
+        {
+            get
+            {
+                return m_ManufacturerName;
+            }
+            set
+            {
+                m_ManufacturerName = value;
+            }
+        }
+
+        public float CurrentAirPressure
+        {
+            get
+            {
+                return m_CurrentAirPressure;
+            }
+            set
+            {
+                m_CurrentAirPressure = value;
+            }
+        }
+
         public void Inflate(float i_AmountToInflate)
         {
             if(i_AmountToInflate + m_CurrentAirPressure <= r_MaxAirPressure)
