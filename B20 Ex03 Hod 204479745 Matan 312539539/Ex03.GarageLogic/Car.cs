@@ -5,8 +5,8 @@
         private int m_AmountOfDoors;
         private eColor m_CarColor;
 
-        public Car(string i_Id, string i_ModelName, Engine i_Engine, int i_AmountOfDoors, eColor i_CarColor) : 
-               base(i_Id, i_ModelName, i_Engine, 4)
+        public Car(string i_Id, string i_ModelName, Engine i_Engine, int i_AmountOfDoors, eColor i_CarColor) :
+            base(i_Id, i_ModelName, i_Engine, 4)
         {
             m_AmountOfDoors = i_AmountOfDoors;
             m_CarColor = i_CarColor;
