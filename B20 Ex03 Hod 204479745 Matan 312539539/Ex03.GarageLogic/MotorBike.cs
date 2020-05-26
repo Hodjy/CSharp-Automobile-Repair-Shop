@@ -1,6 +1,6 @@
 ﻿namespace Ex03.GarageLogic
 {
-    class MotorBike : Vehicle
+    class Motorbike : Vehicle
     {
         int m_EngineVolume;
 
