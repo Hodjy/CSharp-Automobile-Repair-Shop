@@ -25,6 +25,10 @@
             {
                 return m_CurrentEnergy;
             }
+            set
+            {
+                m_CurrentEnergy = value;
+            }
         }
 
         public float MaxEnergy

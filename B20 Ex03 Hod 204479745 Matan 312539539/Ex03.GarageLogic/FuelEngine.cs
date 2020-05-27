@@ -9,14 +9,6 @@
             m_EngineFuelType = i_FuelType;
         }
 
-        public enum eFuelType
-        {
-            Octan98,
-            Octan96,
-            Octan95,
-            Soler,
-        }
-
         public void Recharge(float i_AmountToRecharge, eFuelType i_FuelType)
         {
             if(i_FuelType == m_EngineFuelType)
@@ -31,6 +23,14 @@
             {
                 return m_EngineFuelType;
             }
+        }
+
+        public enum eFuelType
+        {
+            Octan98,
+            Octan96,
+            Octan95,
+            Soler,
         }
     }
 }

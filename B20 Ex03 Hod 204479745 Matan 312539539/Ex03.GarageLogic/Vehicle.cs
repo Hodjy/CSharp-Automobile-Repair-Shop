@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class Vehicle
+    public abstract class Vehicle
     {
         private List<Wheel> m_Wheels;
         private Engine      m_Engine;
