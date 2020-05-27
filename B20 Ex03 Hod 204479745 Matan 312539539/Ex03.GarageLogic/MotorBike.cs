@@ -2,7 +2,7 @@
 {
     public class Motorbike : Vehicle
     {
-        eLicenseType m_License;
+        private eLicenseType m_License;
         private int m_EngineVolume;
 
         public Motorbike(string i_Id, string i_ModelName, Engine i_Engine, eLicenseType i_License, int i_EngineVolume) :

@@ -51,7 +51,15 @@
             }
         }
 
-        public void updateCurrentEnergyPercent()
+        public Engine Engine
+        {
+            get
+            {
+                return m_Engine;
+            }
+        }
+
+        public void calculateCurrentEnergyPercent()
         {
             m_CurrentEnergyPercent = (m_Engine.CurrentEnergy * 100) / m_Engine.MaxEnergy;
         }
@@ -64,7 +72,7 @@
             }
         }
 
-        public void InflateWheels(float i_AmountToInflate)
+        public void InflateAllWheels(float i_AmountToInflate)
         {
             foreach (Wheel wheel in m_Wheels)
             {

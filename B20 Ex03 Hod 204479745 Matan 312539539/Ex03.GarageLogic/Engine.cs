@@ -17,6 +17,10 @@
             {
                 m_CurrentEnergy += i_AmountToRecharge;
             }
+            else
+            {
+                throw new ValueOutOfRangeException(0, r_MaxEnergy - m_CurrentEnergy);
+            }
         }
 
         public float CurrentEnergy

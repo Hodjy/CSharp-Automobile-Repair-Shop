@@ -1,5 +1,7 @@
 ﻿namespace Ex03.GarageLogic
 {
+    using System;
+
     public class FuelEngine : Engine
     {
         private eFuelType m_EngineFuelType;
@@ -14,6 +16,10 @@
             if(i_FuelType == m_EngineFuelType)
             {
                 rechargeEnergy(i_AmountToRecharge);
+            }
+            else
+            {
+                throw new ArgumentException(string.Format("Not a proper Fuel type, use {0} instead.", m_EngineFuelType));
             }
         }
 

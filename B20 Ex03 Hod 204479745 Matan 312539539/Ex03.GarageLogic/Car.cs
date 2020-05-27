@@ -8,8 +8,8 @@
         public Car(string i_Id, string i_ModelName, Engine i_Engine, int i_AmountOfDoors, eColor i_CarColor) :
             base(i_Id, i_ModelName, i_Engine, 4)
         {
-            m_AmountOfDoors = i_AmountOfDoors;
-            m_CarColor = i_CarColor;
+            AmountOfDoors = i_AmountOfDoors;
+            CarColor = i_CarColor;
         }
 
         public int AmountOfDoors
@@ -20,7 +20,17 @@
             }
             set
             {
-                m_AmountOfDoors = value;
+                int minValue = 2, maxValue = 5;
+
+                if(value >= minValue && value <= maxValue)
+                {
+                    m_AmountOfDoors = value;
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException(minValue, maxValue);
+                }
+                
             }
         }
 

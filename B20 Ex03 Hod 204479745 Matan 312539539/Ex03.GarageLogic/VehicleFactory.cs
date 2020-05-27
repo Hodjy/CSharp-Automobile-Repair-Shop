@@ -21,7 +21,7 @@
 
         private static Vehicle createFuelVehicle(eVehicleType i_VehicleType)
         {
-            Vehicle createdVehicle = null;
+            Vehicle    createdVehicle = null;
             FuelEngine createdFuelEngine = null;
 
             switch (i_VehicleType)
@@ -63,6 +63,7 @@
             return createdVehicle;
         }
 
+        // NOT DONE, REMEMBER TO CHANGE EMPTY STRINGS!
         private static Car createCar(Engine i_CreatedEngine)
         { 
             Car createdVehicle = new Car(string.Empty, string.Empty, i_CreatedEngine, 2, Car.eColor.Black);
