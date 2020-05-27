@@ -79,5 +79,10 @@
                 return m_Wheels.Count;
             }
         }
+
+        public override int GetHashCode()
+        {
+            return m_Id.GetHashCode();
+        }
     }
 }
