@@ -3,15 +3,13 @@
     public class StoredVehicle
     {
         private Vehicle       m_Vehicle;
-        private string        m_OwnerName;
-        private string        m_OwnerPhone;
+        private VehicleOwner  m_Owner;
         private eVehicleState m_VehicleState;
 
-        public StoredVehicle(Vehicle i_VehicleToStore, string i_OwnerName, string i_OwnerPhone)
+        public StoredVehicle(Vehicle i_VehicleToStore, VehicleOwner i_OwnerToStore)
         {
             m_Vehicle = i_VehicleToStore;
-            m_OwnerName = i_OwnerName;
-            m_OwnerPhone = i_OwnerPhone;
+            m_Owner = i_OwnerToStore;
         }
 
         public enum eVehicleState
@@ -33,7 +31,12 @@
         {
             get
             {
-                return m_OwnerName;
+                return m_Owner.Name;
+            }
+
+            set
+            {
+                m_Owner.Name = value;
             }
         }
 
@@ -41,7 +44,7 @@
         {
             get
             {
-                return m_OwnerPhone;
+                return m_Owner.PhoneNumber;
             }
         }
 
@@ -55,6 +58,11 @@
             {
                 m_VehicleState = value;
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return m_Vehicle.GetHashCode();
         }
     }
 }
