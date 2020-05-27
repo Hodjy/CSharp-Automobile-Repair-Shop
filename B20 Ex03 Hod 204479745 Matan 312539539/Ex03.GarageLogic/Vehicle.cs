@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class Vehicle
+    public abstract class Vehicle
     {
         private List<Wheel> m_Wheels;
         private Engine      m_Engine;
@@ -78,6 +78,11 @@
             {
                 return m_Wheels.Count;
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return m_Id.GetHashCode();
         }
     }
 }
