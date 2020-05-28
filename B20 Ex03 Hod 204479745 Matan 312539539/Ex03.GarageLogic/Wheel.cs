@@ -37,6 +37,14 @@
             }
         }
 
+        public float MaxAirPressure
+        {
+            get
+            {
+                return r_MaxAirPressure;
+            }
+        }
+
         public void Inflate(float i_AmountToInflate)
         {
             if(i_AmountToInflate + m_CurrentAirPressure <= r_MaxAirPressure)

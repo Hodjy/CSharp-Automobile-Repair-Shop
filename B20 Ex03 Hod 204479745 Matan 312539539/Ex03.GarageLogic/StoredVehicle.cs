@@ -10,6 +10,7 @@
         {
             m_Vehicle = i_VehicleToStore;
             m_Owner = i_OwnerToStore;
+            m_VehicleState = eVehicleState.InRepair;
         }
 
         public enum eVehicleState

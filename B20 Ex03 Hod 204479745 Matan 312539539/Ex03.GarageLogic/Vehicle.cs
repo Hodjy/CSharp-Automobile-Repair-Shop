@@ -72,11 +72,14 @@
             }
         }
 
-        public void InflateAllWheels(float i_AmountToInflate)
+        public void InflateAllWheelsToMax()
         {
+            float amountToInflate;
+
             foreach (Wheel wheel in m_Wheels)
             {
-                wheel.Inflate(i_AmountToInflate);
+                amountToInflate = wheel.MaxAirPressure - wheel.CurrentAirPressure;
+                wheel.Inflate(amountToInflate);
             }
         }
 

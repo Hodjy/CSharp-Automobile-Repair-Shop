@@ -6,7 +6,7 @@
     {
         float m_MaxValue;
         float m_MinValue;
-
+        
         public ValueOutOfRangeException(float i_MinValue, float i_MaxValue) : base()
         {
             m_MinValue = i_MinValue;

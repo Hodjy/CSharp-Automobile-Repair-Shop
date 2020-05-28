@@ -13,14 +13,15 @@
 
         public void Recharge(float i_AmountToRecharge, eFuelType i_FuelType)
         {
-            if(i_FuelType == m_EngineFuelType)
-            {
-                rechargeEnergy(i_AmountToRecharge);
-            }
-            else
+            bool isProperFuelType = false;
+
+            isProperFuelType = i_FuelType == m_EngineFuelType;
+            if (!isProperFuelType)
             {
                 throw new ArgumentException(string.Format("Not a proper Fuel type, use {0} instead.", m_EngineFuelType));
             }
+
+            rechargeEnergy(i_AmountToRecharge);
         }
 
         public eFuelType EngineFuelType

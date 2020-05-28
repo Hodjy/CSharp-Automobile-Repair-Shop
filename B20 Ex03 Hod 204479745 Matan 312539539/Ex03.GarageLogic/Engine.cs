@@ -13,14 +13,15 @@
 
         protected void rechargeEnergy(float i_AmountToRecharge)
         {
-            if (i_AmountToRecharge + m_CurrentEnergy <= r_MaxEnergy)
-            {
-                m_CurrentEnergy += i_AmountToRecharge;
-            }
-            else
+            bool isAmountInRange = false;
+
+            isAmountInRange = ((i_AmountToRecharge + m_CurrentEnergy) <= r_MaxEnergy);
+            if (!isAmountInRange)
             {
                 throw new ValueOutOfRangeException(0, r_MaxEnergy - m_CurrentEnergy);
             }
+
+            m_CurrentEnergy += i_AmountToRecharge;
         }
 
         public float CurrentEnergy
