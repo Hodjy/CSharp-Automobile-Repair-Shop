@@ -50,7 +50,6 @@
 
             engineToRecharge = (vehicleToRecharge.Vehicle.Engine as FuelEngine);            
             engineToRecharge.Recharge(i_AmountToRecharge, i_FuelType); // if not fuel engine, if wrong fuel type, if amount too high.
-
         }
 
         public void RechargeElectric(string i_VehicleId, float i_AmountToRecharge)

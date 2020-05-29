@@ -1,6 +1,8 @@
 ﻿namespace Ex03.GarageLogic
 {
-    public static class VehicleFactory 
+    using System.Collections.Generic;
+
+    public static class VehicleFactory
     {
         public static Vehicle CreateVehicle(eVehicleType i_VehicleType, eEngineType i_EngineType)
         {
@@ -89,14 +91,14 @@
 
         public enum eVehicleType
         {
-            Car,
+            Car = 1,
             Motorbike,
             Truck,
         }
 
         public enum eEngineType
         {
-            Fuel,
+            Fuel = 1,
             Electric,
         }
     }

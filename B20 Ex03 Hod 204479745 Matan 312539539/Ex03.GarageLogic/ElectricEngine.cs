@@ -8,7 +8,8 @@
 
         public void Recharge(float i_AmountToRecharge)
         {
-            rechargeEnergy(i_AmountToRecharge);
+            float amountToRechargeInHours = i_AmountToRecharge / 60f;
+            rechargeEnergy(amountToRechargeInHours);
         }
     }
 }
