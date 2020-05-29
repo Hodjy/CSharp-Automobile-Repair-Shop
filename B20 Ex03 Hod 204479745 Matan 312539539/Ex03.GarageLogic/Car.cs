@@ -53,5 +53,15 @@
             Black,
             Silver,
         }
+
+        public override string ToString()
+        {
+            return string.Format(@"{0},
+Color: {1},
+Amount of Doors: {2}",
+base.ToString(),
+m_CarColor,
+m_AmountOfDoors);
+        }
     }
 }

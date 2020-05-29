@@ -7,6 +7,11 @@
     public class Garage
     {
         Dictionary<int, StoredVehicle> m_StoredVehiclesDictionary;
+
+        public Garage()
+        {
+            m_StoredVehiclesDictionary = new Dictionary<int, StoredVehicle>();
+        }
         
         public void StoreVehicle(Vehicle i_VehicleToStore, VehicleOwner i_OwnerToStore)
         {
@@ -43,9 +48,7 @@
                 throw new ArgumentException("Vehicle does not use a fuel engine.");
             }
 
-            engineToRecharge = (vehicleToRecharge.Vehicle.Engine as FuelEngine);
-            engineToRecharge.Recharge(i_AmountToRecharge, i_FuelType);
-            
+            engineToRecharge = (vehicleToRecharge.Vehicle.Engine as FuelEngine);            
             engineToRecharge.Recharge(i_AmountToRecharge, i_FuelType); // if not fuel engine, if wrong fuel type, if amount too high.
 
         }
@@ -64,6 +67,7 @@
             }
 
             engineToRecharge = (vehicleToRecharge.Vehicle.Engine as ElectricEngine);
+            engineToRecharge.Recharge(i_AmountToRecharge);
         }
 
         public void InflateVehicleWheelsToMaximumCapacity(string i_VehicleId)
@@ -76,32 +80,33 @@
 
         public StringBuilder GetAllVehiclesIdByFilter(StoredVehicle.eVehicleState? i_StateFilter = null) // not done, needs to be changed.
         {
-            StringBuilder vehiclesIdList = new StringBuilder();
-            int           i = 0;
+            StringBuilder vehiclesIdStringList = new StringBuilder(string.Empty);
+            int           i = 1;
 
-            foreach(KeyValuePair<int,StoredVehicle> entry in m_StoredVehiclesDictionary)
+            foreach(KeyValuePair<int, StoredVehicle> entry in m_StoredVehiclesDictionary)
             {
-                if (i_StateFilter != null)
+                if (i_StateFilter == null)
                 {
-                    vehiclesIdList.AppendFormat(@"{0}.{1},
-",i, i_StateFilter);
+                    vehiclesIdStringList.AppendFormat(string.Format(@"{0,-3}. {1,13} {2,6}
+", i, entry.Value.Vehicle.ID, entry.Value.VehicleState));
                     i++;
                 }
-                else
+                else if (i_StateFilter == entry.Value.VehicleState)
                 {
-                    vehiclesIdList.AppendFormat(@"{0}.{1},
-", i, i_StateFilter);
+                    vehiclesIdStringList.AppendFormat(string.Format(@"{0,-3}. {1,13} {2,6}
+", i, entry.Value.Vehicle.ID, entry.Value.VehicleState));
                     i++;
                 }
             }
+
+            return vehiclesIdStringList;
         }
 
-        public StoredVehicle GetStoredVehicle(string i_VehicleId) // maybe make copy constructor instead of returning a ref.
+        public string GetStoredVehicleDetailsString(string i_VehicleId)
         {
-            StoredVehicle vehicleToSend;
+            StoredVehicle vehicleToShowDetails = m_StoredVehiclesDictionary[i_VehicleId.GetHashCode()];
 
-            vehicleToSend = m_StoredVehiclesDictionary[i_VehicleId.GetHashCode()];
-            return vehicleToSend;
+            return vehicleToShowDetails.ToString();
         }
     }
 }

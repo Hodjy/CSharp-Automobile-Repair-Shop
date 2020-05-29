@@ -39,5 +39,10 @@
             Octan95,
             Soler,
         }
+
+        public override string ToString()
+        {
+            return string.Format(@"Fuel Type: {0}", m_EngineFuelType);
+        }
     }
 }

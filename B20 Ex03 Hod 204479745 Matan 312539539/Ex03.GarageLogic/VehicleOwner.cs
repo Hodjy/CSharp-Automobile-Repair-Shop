@@ -30,5 +30,13 @@
                 m_PhoneNumber = value;
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format(@"Name: {0},
+Phone Number: {1}",
+m_Name,
+m_PhoneNumber);
+        }
     }
 }

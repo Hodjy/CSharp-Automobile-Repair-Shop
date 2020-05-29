@@ -65,5 +65,15 @@
         {
             return m_Vehicle.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return string.Format(@"Vehicle Owner: {0}
+Vehicle: {1},
+State: {2}",
+m_Owner,
+Vehicle,
+VehicleState);
+        }
     }
 }

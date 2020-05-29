@@ -52,5 +52,15 @@
                 m_CurrentAirPressure += i_AmountToInflate;
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format(@"Manufacturer name: {0}, 
+Current Air Pressure: {1},
+Max Air Pressure: {2}", 
+m_ManufacturerName,
+m_CurrentAirPressure,
+r_MaxAirPressure);
+        }
     }
 }
