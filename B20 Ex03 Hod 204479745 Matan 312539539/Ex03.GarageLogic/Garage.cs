@@ -21,7 +21,7 @@
             isVehicleIdAlreadyRegistered = m_StoredVehiclesDictionary.ContainsKey(i_VehicleToStore.GetHashCode());
             if (isVehicleIdAlreadyRegistered)
             {
-                throw new ArgumentException(string.Format("Vehicle ID {0} already exists.", i_VehicleToStore.ID));
+                throw new ArgumentException();
             }
 
             m_StoredVehiclesDictionary.Add(i_VehicleToStore.GetHashCode(), newVehicle);
@@ -45,7 +45,7 @@
             isEngineFuel = vehicleToRecharge.Vehicle.Engine is FuelEngine;
             if (!isEngineFuel)
             {
-                throw new ArgumentException("Vehicle does not use a fuel engine.");
+                throw new ArgumentException();
             }
 
             engineToRecharge = (vehicleToRecharge.Vehicle.Engine as FuelEngine);            
@@ -62,7 +62,7 @@
             isEngineElectric = vehicleToRecharge.Vehicle.Engine is ElectricEngine;
             if(!isEngineElectric)
             {
-                throw new ArgumentException("Vehicle does not use an electric engine.");
+                throw new ArgumentException();
             }
 
             engineToRecharge = (vehicleToRecharge.Vehicle.Engine as ElectricEngine);

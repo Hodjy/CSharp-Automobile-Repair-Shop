@@ -1,5 +1,7 @@
 ﻿namespace Ex03.GarageLogic
 {
+    using System;
+
     public class Motorbike : Vehicle
     {
         private eLicenseType m_License;
@@ -32,7 +34,14 @@
             }
             set
             {
-                m_EngineVolume = value;
+                if (value >= 0)
+                {
+                    m_EngineVolume = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
             }
         }
 

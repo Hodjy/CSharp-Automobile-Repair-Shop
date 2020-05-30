@@ -86,6 +86,7 @@
         private static Truck createTruck(Engine i_CreatedEngine)
         {
             Truck createdVehicle = new Truck(string.Empty, string.Empty, i_CreatedEngine, false, 0);
+
             return createdVehicle;
         }
 

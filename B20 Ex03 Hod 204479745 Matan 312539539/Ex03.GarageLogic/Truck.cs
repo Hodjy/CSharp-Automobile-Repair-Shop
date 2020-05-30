@@ -1,5 +1,7 @@
 ﻿namespace Ex03.GarageLogic
 {
+    using System;
+
     public class Truck : Vehicle
     {
         private bool  m_IsContainingDangerousProducts;
@@ -33,7 +35,14 @@
             }
             set
             {
-                m_CargoVolume = value;
+                if (value >= 0 && value <= 99999f)
+                {
+                    m_CargoVolume = value;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
             }
         }
 
