@@ -15,7 +15,8 @@
 3. Change a vehicle state.
 4. Inflate all vehicle's wheels to maximum capacity.
 5. Refuel a vehicle by engine type.
-6. Display a vehicle's full detail. ");
+6. Display a vehicle's full detail.
+7. Exit.");
             clearScreenAndPrint(stringToPrint);
         }
 
@@ -74,6 +75,17 @@
         {
             Console.Clear();
             Console.WriteLine(i_StringToPrint);
+        }
+
+        public static void ShowMessage(string i_StringToShow)
+        {
+            Console.WriteLine(i_StringToShow);
+        }
+
+
+        public static void ShowErrorMessage(string i_StringToShow)
+        {
+            Console.WriteLine(i_StringToShow);
         }
     }
 }

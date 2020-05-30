@@ -97,9 +97,37 @@
         private VehicleOwner createNewVehicleOwner()
         {
             VehicleOwner newVehicleOwner = new VehicleOwner();
+            bool         isInputValid = false;
+            while(!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowMessage("Please enter the owner name");
+                    newVehicleOwner.Name = Console.ReadLine();
+                    isInputValid = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    OutputManager.ShowErrorMessage("");
+                }
+            }
 
-            newVehicleOwner.Name = getValidVehicleOwnerName().ToString();
-            newVehicleOwner.PhoneNumber = getValidVehicleOwnerPhone().ToString();
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowMessage();
+                    newVehicleOwner.PhoneNumber = Console.ReadLine();
+                    isInputValid = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    OutputManager.ShowErrorMessage();
+                }
+            }
+
+
+            newVehicleOwner.PhoneNumber = Console.ReadLine();
 
             return newVehicleOwner;
         }
