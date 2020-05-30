@@ -5,9 +5,9 @@
 
     internal class InputManager
     {
-        public static StringBuilder GetMainMenuInput()
+        public static int GetInputAndConvertToInt()
         {
-            StringBuilder userInput = new StringBuilder(Console.ReadLine());
+            StringBuilder userInput = new StringBuilder(GetUserInput());
             int result;
 
             if (!(int.TryParse(userInput.ToString(), out result)))
@@ -15,12 +15,25 @@
                 throw new FormatException();
             }
 
-            if (result > 6 || result < 1)
+            return result;
+        }
+
+        public static float GetInputAndConvertToFloat()
+        {
+            StringBuilder userInput = new StringBuilder(GetUserInput());
+            float result;
+
+            if (!(float.TryParse(userInput.ToString(), out result)))
             {
-                throw new ArgumentException();
+                throw new FormatException();
             }
 
-            return userInput;
+            return result;
+        }
+
+        public static string GetUserInput()
+        {
+            return Console.ReadLine();
         }
     }
 }

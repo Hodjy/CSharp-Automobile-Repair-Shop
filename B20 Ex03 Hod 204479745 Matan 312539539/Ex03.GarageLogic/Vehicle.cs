@@ -102,15 +102,15 @@
             StringBuilder VehicleDetails = new StringBuilder(string.Format(@"Vehicle ID: {0},
 Model Name: {1},
 Engine: {2},
-Current % Energy: {3}",
+Current % Energy: {3}
+",
 m_Id,
 m_ModelName,
 m_Engine,
 m_CurrentEnergyPercent));
             foreach (Wheel currentWheel in m_Wheels)
             {
-                VehicleDetails.Append(string.Format(@"
-{0}", currentWheel.ToString()));
+                VehicleDetails.AppendLine(string.Format("{0}", currentWheel.ToString()));
             }
 
             return VehicleDetails.ToString();
