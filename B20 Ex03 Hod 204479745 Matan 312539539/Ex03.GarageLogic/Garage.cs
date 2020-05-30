@@ -50,6 +50,7 @@
 
             engineToRecharge = (vehicleToRecharge.Vehicle.Engine as FuelEngine);            
             engineToRecharge.Recharge(i_AmountToRecharge, i_FuelType); // if not fuel engine, if wrong fuel type, if amount too high.
+            vehicleToRecharge.Vehicle.calculateCurrentEnergyPercent();
         }
 
         public void RechargeElectric(string i_VehicleId, float i_AmountToRecharge)
@@ -67,6 +68,7 @@
 
             engineToRecharge = (vehicleToRecharge.Vehicle.Engine as ElectricEngine);
             engineToRecharge.Recharge(i_AmountToRecharge);
+            vehicleToRecharge.Vehicle.calculateCurrentEnergyPercent();
         }
 
         public void InflateVehicleWheelsToMaximumCapacity(string i_VehicleId)

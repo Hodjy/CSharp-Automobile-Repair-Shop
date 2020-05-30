@@ -1,5 +1,7 @@
 ﻿namespace Ex03.GarageLogic
 {
+    using System;
+
     public abstract class Engine
     {
         protected float m_CurrentEnergy;
@@ -32,6 +34,11 @@
             }
             set
             {
+                if (value < 0)
+                {
+                    throw new ArgumentException();
+                }
+
                 m_CurrentEnergy = value;
             }
         }

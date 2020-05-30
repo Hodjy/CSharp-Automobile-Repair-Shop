@@ -84,6 +84,14 @@
             }
         }
 
+        public void SetWheelsAirPressure(float i_CurrentAirPressure)
+        {
+            foreach(Wheel w in m_Wheels)
+            {
+                w.CurrentAirPressure = i_CurrentAirPressure;
+            }
+        }
+
         public int AmountOfWheels
         {
             get
@@ -108,6 +116,7 @@ m_Id,
 m_ModelName,
 m_Engine,
 m_CurrentEnergyPercent));
+
             foreach (Wheel currentWheel in m_Wheels)
             {
                 VehicleDetails.AppendLine(string.Format("{0}", currentWheel.ToString()));

@@ -26,7 +26,9 @@
         {
             StringBuilder stringToPrint = new StringBuilder();
 
-            stringToPrint.Append("");
+            stringToPrint.AppendLine(@"Please enter the number of the desired vehicle:");
+            stringToPrint.Append(getAppropriateEnumMenu<VehicleFactory.eVehicleType>());
+            clearScreenAndPrint(stringToPrint);
         }
 
         public static void ShowAskVehicleIdMessage()
@@ -42,7 +44,7 @@
             StringBuilder stringToPrint = new StringBuilder();
 
             stringToPrint.AppendLine(@"Please enter the number of the desired vehicle's new state:");
-            stringToPrint.Append(GetAppropriateEnumMenu<StoredVehicle.eVehicleState>());
+            stringToPrint.Append(getAppropriateEnumMenu<StoredVehicle.eVehicleState>());
             clearScreenAndPrint(stringToPrint);
         }
 
@@ -59,7 +61,7 @@
             StringBuilder stringToPrint = new StringBuilder();
 
             stringToPrint.AppendLine("Please enter the number of the fuel type:");
-            stringToPrint.Append(GetAppropriateEnumMenu<FuelEngine.eFuelType>());
+            stringToPrint.Append(getAppropriateEnumMenu<FuelEngine.eFuelType>());
             clearScreenAndPrint(stringToPrint);
         }
 
@@ -79,15 +81,14 @@
             Console.Clear();
             Console.WriteLine(i_StringToShow);
         }
-
-
+        
         public static void ShowErrorMessage(string i_StringToShow)
         {
             Console.WriteLine(i_StringToShow);
             Thread.Sleep(1000);
         }
 
-        public static StringBuilder GetAppropriateEnumMenu<T>()
+        private static StringBuilder getAppropriateEnumMenu<T>()
         {
             int menuIndex = 1;
             StringBuilder stringToPrint = new StringBuilder();

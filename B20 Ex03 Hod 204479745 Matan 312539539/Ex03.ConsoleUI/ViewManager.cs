@@ -21,47 +21,48 @@
 
         private void runGarageOperation()
         {
-            StringBuilder validUserInput = new StringBuilder();
-            bool          isRunning = true;
+            int validUserInput = 0;
+            bool isRunning = true;
 
             while (isRunning)
             {
-                OutputManager.ShowOperationMenu();
+                OutputManager.ShowMainMenuScreen();
                 validUserInput = GetMainMenuValidInput();
                 callAppropriateOperation(validUserInput);
             }
         }
 
-        private StringBuilder GetMainMenuValidInput()
+        private int GetMainMenuValidInput()
         {
-            bool          isInputValid = false;
-            StringBuilder userInput = new StringBuilder();
+            bool isInputValid = false;
+            int userInput = 0;
 
-            while(!isInputValid)
+            while (!isInputValid)
             {
                 try
                 {
-                    userInput = InputManager.GetMainMenuInput();
+                    userInput = InputManager.GetInputAndConvertToInt();
+                    isInRange(userInput, 1, 7);
                     isInputValid = true;
                 }
                 catch (FormatException ex)
                 {
-                    OutputManager.ShowInvalidFormatInputMsg();
+                    OutputManager.ShowErrorMessage(@"Invalid input.
+Please enter a number");
                 }
-                catch (ArgumentException ex)
+                catch (ValueOutOfRangeException ex)
                 {
-                    OutputManager.ShowInvalidArgumentInputMsg();
+                    OutputManager.ShowErrorMessage(string.Format(@"Invalid number.
+Pleaes pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
                 }
             }
 
             return userInput;
         }
 
-        private void callAppropriateOperation(StringBuilder i_ValidUserInput)
+        private void callAppropriateOperation(int i_ValidUserInput)
         {
-            int operationNumber = int.Parse(i_ValidUserInput.ToString());
-
-            switch (operationNumber)
+            switch (i_ValidUserInput)
             {
                 case 1:
                     storeNewVehicleInGarage();
@@ -81,6 +82,9 @@
                 case 6:
                     showVehicleDetails();
                     break;
+                case 7:
+                    quitProgram();
+                    break;
             }
         }
 
@@ -91,20 +95,59 @@
 
             newOwnerToStore = createNewVehicleOwner();
             newVehicleToStore = createNewVehicle();
+            changeVehicleDetails(ref newVehicleToStore);
             m_CurrentGarage.StoreVehicle(newVehicleToStore, newOwnerToStore);
+        }
+
+        private void showFilteredId()
+        {
+
+        }
+
+        private void changeVehicleState()
+        {
+
+        }
+
+        private void inflateAirInAllWheels()
+        {
+
+        }
+
+        private void rechargeVehicle()
+        {
+
+        }
+
+        private void showVehicleDetails()
+        {
+
+        }
+
+        private void quitProgram()
+        {
+            System.Environment.Exit(1);
         }
 
         private VehicleOwner createNewVehicleOwner()
         {
             VehicleOwner newVehicleOwner = new VehicleOwner();
 
-            getVehicleOwnerName(out newVehicleOwner);
-            getVehicleOwnerPhone(out newVehicleOwner);            
+            getValidVehicleOwnerName(out newVehicleOwner);
+            getVehicleOwnerPhone(out newVehicleOwner);
 
             return newVehicleOwner;
         }
 
-        private void getVehicleOwnerName(out VehicleOwner o_VehicleOwner)
+        private Vehicle createNewVehicle()
+        {
+            VehicleFactory.eVehicleType newVehicleType = getValidUserVehicleType();
+            VehicleFactory.eEngineType newEngineType = getValidUserEngineType();
+
+            return VehicleFactory.CreateVehicle(newVehicleType, newEngineType);
+        }
+
+        private void getValidVehicleOwnerName(out VehicleOwner o_VehicleOwnerToUpdate)
         {
             bool isInputValid = false;
 
@@ -113,18 +156,18 @@
                 try
                 {
                     OutputManager.ShowMessage("Please enter the owner name:");
-                    o_VehicleOwner.Name = InputManager.GetUserInput();
+                    o_VehicleOwnerToUpdate.Name = InputManager.GetUserInput();
                     isInputValid = true;
                 }
                 catch (ArgumentException ex)
                 {
                     OutputManager.ShowErrorMessage(@"Invalid name. 
-Owner name must contain only letters without spaces.");
+Owner name must contain only letters.");
                 }
             }
         }
 
-        private void getVehicleOwnerPhone(out VehicleOwner o_VehicleOwner)
+        private void getVehicleOwnerPhone(out VehicleOwner o_VehicleOwnerToUpdate)
         {
             bool isInputValid = false;
 
@@ -133,7 +176,7 @@ Owner name must contain only letters without spaces.");
                 try
                 {
                     OutputManager.ShowMessage("Please enter the owners phone number:");
-                    o_VehicleOwner.PhoneNumber = InputManager.GetUserInput();
+                    o_VehicleOwnerToUpdate.PhoneNumber = InputManager.GetUserInput();
                     isInputValid = true;
                 }
                 catch (ArgumentException ex)
@@ -144,72 +187,313 @@ Phone number must contain only numbers.");
             }
         }
 
-        private Vehicle createNewVehicle()
-        {
-            Vehicle newVehicle = null;
-            VehicleFactory.eVehicleType newVehicleType = getValidUserVehicleType();
-            VehicleFactory.eEngineType newEngineType = getValidUserEngineType();
-
-            return VehicleFactory.CreateVehicle(newVehicleType, newEngineType);
-        }
-
-        private StringBuilder getValidVehicleOwnerName()
-        {
-            bool isValidInput = false;
-            StringBuilder userInput = new StringBuilder();
-
-            while(!isValidInput)
-            {
-                try
-                {
-                    userInput = InputManager.GetVehicleOwnerName();
-                    isValidInput = true;
-                }
-                catch
-                {
-                    OutputManager.ShowInvalidInputMsg();
-                }
-            }
-
-            return userInput;
-        }
-
-        private StringBuilder getValidVehicleOwnerPhone()
-        {
-            bool isValidInput = false;
-            StringBuilder userInput = new StringBuilder();
-
-            while (!isValidInput)
-            {
-                try
-                {
-                    userInput = InputManager.GetVehicleOwnerName();
-                    isValidInput = true;
-                }
-                catch
-                {
-                    OutputManager.ShowInvalidInputMsg();
-                }
-            }
-
-            return userInput;
-        }
-
         private VehicleFactory.eVehicleType getValidUserVehicleType()
         {
+
             VehicleFactory.eVehicleType userVehicleType;
-            StringBuilder userInput = new StringBuilder();
+            bool isInputValid = false;
+            int userInput = 0;
 
-            userInput = getUserVehicleTypeString();
-            userVehicleType = (VehicleFactory.eVehicleType)int.Parse(userInput.ToString());
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowEnterNewVehicleScreen();
+                    userInput = InputManager.GetInputAndConvertToInt();
+                    isInRange(userInput, 1, Enum.GetValues(typeof(VehicleFactory.eVehicleType)).Length);
+                    isInputValid = true;
+                }
+                catch(FormatException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid input.
+Please enter a number");
+                }
+                catch(ValueOutOfRangeException ex)
+                {
+                    OutputManager.ShowErrorMessage(string.Format(@"Invalid number.
+Please pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
+                }
+            }
 
-            return 
+            userVehicleType = (VehicleFactory.eVehicleType)userInput;
+
+            return userVehicleType;
         }
 
-        public enum eInputType
+        private VehicleFactory.eEngineType getValidUserEngineType()
         {
 
+            VehicleFactory.eEngineType userEngineType;
+            bool isInputValid = false;
+            int userInput = 0;
+
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowEnterNewEngineScreen();
+                    userInput = InputManager.GetInputAndConvertToInt();
+                    isInRange(userInput, 1, Enum.GetValues(typeof(VehicleFactory.eEngineType)).Length);
+                    isInputValid = true;
+                }
+                catch (FormatException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid input.
+Please enter a number");
+                }
+                catch (ValueOutOfRangeException ex)
+                {
+                    OutputManager.ShowErrorMessage(string.Format(@"Invalid number.
+Please pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
+                }
+            }
+
+            userEngineType = (VehicleFactory.eEngineType)userInput;
+
+            return userEngineType;
         }
 
+        private void changeVehicleDetails(ref Vehicle io_NewVehicleToUpdate)
+        {
+            getVehicleProperties(ref io_NewVehicleToUpdate);
+
+            if (io_NewVehicleToUpdate is Car)
+            {
+                Car newCar = io_NewVehicleToUpdate as Car;
+                getCarProperties(ref newCar);
+            }
+            else if (io_NewVehicleToUpdate is Motorbike)
+            {
+                Motorbike newMotorbike = io_NewVehicleToUpdate as Motorbike;
+                getMotorbikeProperties(ref newMotorbike);
+            }
+            else if (io_NewVehicleToUpdate is Truck)
+            {
+                Truck newTruck = io_NewVehicleToUpdate as Truck;
+                getTruckProperties(ref newTruck);
+            }
+        }
+
+        private void getVehicleProperties(ref Vehicle io_NewVehicleToUpdate)
+        {
+            OutputManager.ShowMessage("Please enter the vehicle license number");
+            io_NewVehicleToUpdate.ID = InputManager.GetUserInput();
+            OutputManager.ShowMessage("Please enter the vehicle model name");
+            io_NewVehicleToUpdate.ModelName = InputManager.GetUserInput();
+
+            getEngineCurrentEnergy(ref io_NewVehicleToUpdate);
+            getWheelsCurrentAirPressure(ref io_NewVehicleToUpdate);
+        }
+
+        private void getEngineCurrentEnergy(ref Vehicle io_NewVehicleYoUpdate)
+        {
+            bool isInputValid = false;
+
+            while(!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowMessage("Please enter current engine energy.");
+                    io_NewVehicleYoUpdate.Engine.CurrentEnergy = InputManager.GetInputAndConvertToFloat();
+                    isInputValid = true;
+                }
+                catch(FormatException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid format.
+Please enter a number.");
+                }
+                catch(ArgumentException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid number.
+Please enter a positive number only.");
+                }
+            }
+        }
+
+        private void getWheelsCurrentAirPressure(ref Vehicle io_NewVehicleYoUpdate)
+        {
+            bool isInputValid = false;
+
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowMessage("Please enter the current wheels' air pressure.");
+                    io_NewVehicleYoUpdate.SetWheelsAirPressure(InputManager.GetInputAndConvertToFloat());
+                    isInputValid = true;
+                }
+                catch (FormatException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid format.
+Please enter a number.");
+                }
+                catch (ArgumentException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid number.
+Please enter a positive number only.");
+                }
+            }
+        }
+
+        private void getCarProperties(ref Car io_CarToUpdate)
+        {
+            getCarAmountOfDoors(ref io_CarToUpdate);
+            getCarColor(ref io_CarToUpdate);
+        }
+
+        private void getCarAmountOfDoors(ref Car io_CarToUpdate)
+        {
+            bool isInputValid = false;
+
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowMessage("Please enter the amount of doors in the car.");
+                    io_CarToUpdate.AmountOfDoors = InputManager.GetInputAndConvertToInt();
+                    isInputValid = true;
+                }
+                catch(FormatException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid input.
+Please enter a number.");
+                }
+                catch(ValueOutOfRangeException ex)
+                {
+                    OutputManager.ShowErrorMessage(string.Format(@"Invalid number.
+Please enter a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
+                }
+            }
+        }
+
+        private void getCarColor(ref Car io_CarToUpdate)
+        {
+            bool isInputValid = false;
+            int userInput = 0;
+
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowCarColorScreen();
+                    userInput = InputManager.GetInputAndConvertToInt();
+                    isInRange(userInput, 1, Enum.GetValues(typeof(Car.eColor)).Length);
+                    isInputValid = true;
+                }
+                catch(FormatException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid input.
+Please enter a number.");
+                }
+                catch(ValueOutOfRangeException ex)
+                {
+                    OutputManager.ShowErrorMessage(string.Format(@"Invalid number.
+Please enter a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
+                }
+            }
+
+            io_CarToUpdate.CarColor = (Car.eColor)userInput;
+        }
+
+        private void getMotorbikeProperties(ref Motorbike io_MotorbikeToUpdate)
+        {
+            getMotorbikeLicenseType(ref io_MotorbikeToUpdate);
+            getMotorbikeEngineVolume(ref io_MotorbikeToUpdate);
+        }
+
+        private void getMotorbikeLicenseType(ref Motorbike io_MotorbikeToUpdate)
+        {
+            bool isInputValid = false;
+            int userInput = 0;
+
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowMotorbikeLicenseScreen();
+                    userInput = InputManager.GetInputAndConvertToInt();
+                    isInRange(userInput, 1, Enum.GetValues(typeof(Motorbike.eLicenseType)).Length);
+                    isInputValid = true;
+                }
+                catch(FormatException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid input.
+Please enter a number.");
+                }
+                catch (ValueOutOfRangeException ex)
+                {
+                    OutputManager.ShowErrorMessage(string.Format(@"Invalid number.
+Please enter a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
+                }
+            }
+
+            io_MotorbikeToUpdate.License = (Motorbike.eLicenseType)userInput;
+        }
+
+        private void getMotorbikeEngineVolume(ref Motorbike io_MotorbiketoUpdate)
+        {
+            bool isInputValid = false;
+
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowMessage("Please enter the motorbike engine volume.");
+                    io_MotorbiketoUpdate.EngineVolume = InputManager.GetInputAndConvertToInt();
+                    isInputValid = true;
+                }
+                catch (FormatException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid input.
+Please enter a number.");
+                }
+                catch (ArgumentException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid number.
+Please enter a positive number only.");
+                }
+
+            }
+        }
+
+        private void getTruckProperties(ref Truck io_TruckToUpdate)
+        {
+            getTruckCargoVolume(ref io_TruckToUpdate);
+            getTruckIsContainingDangerousProducts(ref io_TruckToUpdate);
+        }
+
+        public void getTruckCargoVolume(ref Truck io_TruckToUpdate)
+        {
+            bool isInputValid = false;
+
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowMessage("Please enter the truck cargo volume.");
+                    io_TruckToUpdate.CargoVolume = InputManager.GetInputAndConvertToInt();
+                    isInputValid = true;
+                }
+                catch (FormatException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid input.
+Please enter a number.");
+                }
+                catch (ArgumentException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid number.
+Please enter a positive number only.");
+                }
+
+            }
+        }
+
+        private void isInRange(float i_ToCheck, float i_MinValue, float i_MaxValue)
+        {
+            if (!(i_ToCheck <= i_MaxValue && i_ToCheck >= i_MinValue))
+            {
+                throw new ValueOutOfRangeException(i_MinValue, i_MaxValue);
+            }
+        }
     }
 }
