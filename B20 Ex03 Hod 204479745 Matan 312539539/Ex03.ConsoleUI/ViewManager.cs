@@ -34,7 +34,7 @@
 
         private StringBuilder GetMainMenuValidInput()
         {
-            bool isInputValid = false;
+            bool          isInputValid = false;
             StringBuilder userInput = new StringBuilder();
 
             while(!isInputValid)
