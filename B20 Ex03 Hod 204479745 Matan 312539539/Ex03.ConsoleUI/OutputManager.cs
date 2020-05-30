@@ -2,6 +2,8 @@
 {
     using System;
     using System.Text;
+    using System.Threading;
+    using Ex03.GarageLogic;
 
     static class OutputManager
     {
@@ -39,10 +41,8 @@
         {
             StringBuilder stringToPrint = new StringBuilder();
 
-            stringToPrint.Append(@"Please enter the number of the desired vehicle's new state:
-1. InRepair
-2. Repaired
-3. Paid");
+            stringToPrint.AppendLine(@"Please enter the number of the desired vehicle's new state:");
+            stringToPrint.Append(GetAppropriateEnumMenu<StoredVehicle.eVehicleState>());
             clearScreenAndPrint(stringToPrint);
         }
 
@@ -58,11 +58,8 @@
         {
             StringBuilder stringToPrint = new StringBuilder();
 
-            stringToPrint.Append(@"Please enter the number of the fuel type:
-1. Octan98.
-2. Octan96.
-3. Octan95.
-4. Soler.");
+            stringToPrint.AppendLine("Please enter the number of the fuel type:");
+            stringToPrint.Append(GetAppropriateEnumMenu<FuelEngine.eFuelType>());
             clearScreenAndPrint(stringToPrint);
         }
 
@@ -79,6 +76,7 @@
 
         public static void ShowMessage(string i_StringToShow)
         {
+            Console.Clear();
             Console.WriteLine(i_StringToShow);
         }
 
@@ -86,6 +84,21 @@
         public static void ShowErrorMessage(string i_StringToShow)
         {
             Console.WriteLine(i_StringToShow);
+            Thread.Sleep(1000);
+        }
+
+        public static StringBuilder GetAppropriateEnumMenu<T>()
+        {
+            int menuIndex = 1;
+            StringBuilder stringToPrint = new StringBuilder();
+
+            foreach (string enumMember in Enum.GetNames(typeof(T)))
+            {
+                stringToPrint.AppendFormat("{0}. {1}", menuIndex, enumMember);
+                menuIndex++;
+            }
+
+            return stringToPrint;
         }
     }
 }

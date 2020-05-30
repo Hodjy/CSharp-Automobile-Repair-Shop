@@ -97,39 +97,51 @@
         private VehicleOwner createNewVehicleOwner()
         {
             VehicleOwner newVehicleOwner = new VehicleOwner();
-            bool         isInputValid = false;
-            while(!isInputValid)
-            {
-                try
-                {
-                    OutputManager.ShowMessage("Please enter the owner name");
-                    newVehicleOwner.Name = Console.ReadLine();
-                    isInputValid = true;
-                }
-                catch (ArgumentException ex)
-                {
-                    OutputManager.ShowErrorMessage("");
-                }
-            }
+
+            getVehicleOwnerName(out newVehicleOwner);
+            getVehicleOwnerPhone(out newVehicleOwner);            
+
+            return newVehicleOwner;
+        }
+
+        private void getVehicleOwnerName(out VehicleOwner o_VehicleOwner)
+        {
+            bool isInputValid = false;
 
             while (!isInputValid)
             {
                 try
                 {
-                    OutputManager.ShowMessage();
-                    newVehicleOwner.PhoneNumber = Console.ReadLine();
+                    OutputManager.ShowMessage("Please enter the owner name:");
+                    o_VehicleOwner.Name = InputManager.GetUserInput();
                     isInputValid = true;
                 }
                 catch (ArgumentException ex)
                 {
-                    OutputManager.ShowErrorMessage();
+                    OutputManager.ShowErrorMessage(@"Invalid name. 
+Owner name must contain only letters without spaces.");
                 }
             }
+        }
 
+        private void getVehicleOwnerPhone(out VehicleOwner o_VehicleOwner)
+        {
+            bool isInputValid = false;
 
-            newVehicleOwner.PhoneNumber = Console.ReadLine();
-
-            return newVehicleOwner;
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowMessage("Please enter the owners phone number:");
+                    o_VehicleOwner.PhoneNumber = InputManager.GetUserInput();
+                    isInputValid = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    OutputManager.ShowErrorMessage(@"Invalid phone number.
+Phone number must contain only numbers.");
+                }
+            }
         }
 
         private Vehicle createNewVehicle()
