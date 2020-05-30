@@ -36,7 +36,7 @@
 
             set
             {
-                if (value.Length != 10)
+                if (!checkIfStringIsOnlyDigits(value))
                 {
                     throw new ArgumentException();
                 }
@@ -67,6 +67,22 @@ m_PhoneNumber);
             }
 
             return isOnlyLetters;
+        }
+
+        private bool checkIfStringIsOnlyDigits(string i_StringToCheck)
+        {
+            bool isOnlyDigits = true;
+
+            foreach(char c in i_StringToCheck)
+            {
+                if (!char.IsDigit(c))
+                {
+                    isOnlyDigits = false;
+                    break;
+                }
+            }
+
+            return isOnlyDigits;
         }
     }
 }

@@ -51,6 +51,10 @@
             {
                 m_CurrentAirPressure += i_AmountToInflate;
             }
+            else
+            {
+                throw new ValueOutOfRangeException(0, r_MaxAirPressure - m_CurrentAirPressure);
+            }
         }
 
         public override string ToString()

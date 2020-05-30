@@ -47,6 +47,10 @@
             {
                 return m_Owner.PhoneNumber;
             }
+            set
+            {
+                m_Owner.PhoneNumber = value;
+            }
         }
 
         public eVehicleState VehicleState
