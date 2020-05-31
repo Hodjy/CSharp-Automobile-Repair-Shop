@@ -87,9 +87,17 @@
 
         public void SetWheelsAirPressure(float i_CurrentAirPressure)
         {
-            foreach(Wheel w in m_Wheels)
+            foreach(Wheel wheel in m_Wheels)
             {
-                w.CurrentAirPressure = i_CurrentAirPressure;
+                wheel.CurrentAirPressure = i_CurrentAirPressure;
+            }
+        }
+
+        public void SetWheelsManufacturerName(string i_ManufacturerName)
+        {
+            foreach (Wheel wheel in m_Wheels)
+            {
+                wheel.ManufacturerName = i_ManufacturerName;
             }
         }
 

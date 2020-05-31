@@ -15,7 +15,7 @@
 
         public enum eVehicleState
         {
-            InRepair,
+            InRepair = 1,
             Repaired,
             Paid,
         }

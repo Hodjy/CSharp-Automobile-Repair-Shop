@@ -12,7 +12,7 @@
 
             if (!(int.TryParse(userInput.ToString(), out result)))
             {
-                throw new FormatException();
+                throw new FormatException("Input must contain only numbers.");
             }
 
             return result;
@@ -25,7 +25,7 @@
 
             if (!(float.TryParse(userInput.ToString(), out result)))
             {
-                throw new FormatException();
+                throw new FormatException("Input must contain only numbers.");
             }
 
             return result;

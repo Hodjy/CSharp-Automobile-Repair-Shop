@@ -47,13 +47,11 @@
                 }
                 catch (FormatException ex)
                 {
-                    OutputManager.ShowErrorMessage(@"Invalid input.
-Please enter a number");
+                    OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
                 }
                 catch (ValueOutOfRangeException ex)
                 {
-                    OutputManager.ShowErrorMessage(string.Format(@"Invalid number.
-Pleaes pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
+                    OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
                 }
             }
 
@@ -112,7 +110,6 @@ Pleaes pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
                 {
                     OutputManager.ShowFilterByVehicleStateScreen();
                     userChoice = InputManager.GetInputAndConvertToInt();
-                    userChoice++;
                     isInRange(userChoice, 1, (enumLength + 1));
                     stringOfIdToPrint = getFilteredVehicleId(userChoice);
                     OutputManager.ShowMessage(stringOfIdToPrint.ToString());
@@ -121,12 +118,11 @@ Pleaes pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
                 }
                 catch (FormatException ex)
                 {
-                    OutputManager.ShowErrorMessage("Invalid input. You can only enter numbers.");
+                    OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
                 }
                 catch (ValueOutOfRangeException ex)
                 {
-                    OutputManager.ShowErrorMessage(string.Format("Invalid input. numbers must be between {0} to {1}.",
-                                                   ex.MinValue, ex.MaxValue));
+                    OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
                 }
             }
         }
@@ -164,16 +160,23 @@ Pleaes pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
                     stateChoiceInput = InputManager.GetInputAndConvertToInt();
                     isInRange(stateChoiceInput, 1, Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length);
                     m_CurrentGarage.ChangeVehicleState(vehicleIdInput.ToString(), (StoredVehicle.eVehicleState)stateChoiceInput);
+                    OutputManager.ShowMessage("Successfuly changed the vehicle state.");
+                    pressToContinue();
+                    isInputValid = true;
                 }
-                catch 
+                catch (FormatException ex)
                 {
-
+                    OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                }
+                catch (ValueOutOfRangeException ex)
+                {
+                    OutputManager.ShowErrorMessage(string.Format("Input out of range. {0}", ex.Message));
+                }
+                catch (ArgumentException ex)
+                {
+                    OutputManager.ShowErrorMessage(string.Format("{0}", ex.Message));
                 }
             }
-        }
-
-        private StoredVehicle getVehicleById(StringBuilder i_vehicleId)
-        {
         }
 
         private void inflateAirInAllWheels()
@@ -188,33 +191,78 @@ Pleaes pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
                     OutputManager.ShowMessage("Please enter the desired vehicle id");
                     vehicleIdInput = InputManager.GetUserInput();
                     m_CurrentGarage.InflateVehicleWheelsToMaximumCapacity(vehicleIdInput.ToString());
+                    OutputManager.ShowMessage("Successully inflated all the wheels.");
+                    pressToContinue();
                     isInputValid = true;
                 }
-                catch
+                catch (ArgumentException ex)
                 {
-
+                    OutputManager.ShowErrorMessage(string.Format("{0}", ex.Message));
                 }
             }
         }
 
         private void rechargeVehicle()
         {
-            bool isInputValid = false;
-            int userInput = 0;
+            bool          isInputValid = false;
+            int           fuelTypeInput = 0, enumLength = 0;
             StringBuilder vehicleIdInput = null;
+            float         fuelAmountInput = 0;
 
+            enumLength = Enum.GetNames(typeof(VehicleFactory.eEngineType)).Length;
             while (!isInputValid)
             {
                 try
                 {
-                    OutputManager.ShowMessage("Please enter desired vehicle id.");
+                    OutputManager.ShowMessage("Please enter desired vehicle id:");
+                    vehicleIdInput = InputManager.GetUserInput();
+                    OutputManager.ShowScreen<VehicleFactory.eEngineType>("Enter the type of engine your vehicle has:");
+                    fuelTypeInput = InputManager.GetInputAndConvertToInt();
+                    isInRange(fuelTypeInput, 1, enumLength);
+                    OutputManager.ShowMessage("Please enter the amount you wish to charge your vehicle:");
+                    fuelAmountInput = InputManager.GetInputAndConvertToFloat();
+                    if ((VehicleFactory.eEngineType)fuelTypeInput == VehicleFactory.eEngineType.Fuel)
+                    {
+                        rechargeFuel(vehicleIdInput.ToString(), fuelAmountInput);
+                    }
+                    else
+                    {
+                        rechargeElectric(vehicleIdInput.ToString(), fuelAmountInput);
+                    }
 
+                    OutputManager.ShowMessage("Successfully recharged.");
+                    pressToContinue();
+                    isInputValid = true;
                 }
-                catch
+                catch (FormatException ex)
                 {
-
+                    OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                }
+                catch (ValueOutOfRangeException ex)
+                {
+                    OutputManager.ShowErrorMessage(string.Format("Input out of range. {0}", ex.Message));
+                }
+                catch (ArgumentException ex)
+                {
+                    OutputManager.ShowErrorMessage(string.Format("{0}", ex.Message));
                 }
             }
+        }
+
+        private void rechargeFuel(string i_VehicleId, float i_FuelAmountToRecharge)
+        {
+            int   fuelTypeInput = 0, enumLength = 0;
+
+            enumLength = Enum.GetNames(typeof(FuelEngine.eFuelType)).Length;
+            OutputManager.ShowScreen<FuelEngine.eFuelType>("Please enter the number for your desired fuel type:");
+            fuelTypeInput = InputManager.GetInputAndConvertToInt();
+            isInRange(fuelTypeInput, 0, enumLength);
+            m_CurrentGarage.RechargeFuel(i_VehicleId, (FuelEngine.eFuelType)fuelTypeInput, i_FuelAmountToRecharge);
+        }
+
+        private void rechargeElectric (string i_VehicleId, float i_AmountToRecharge)
+        {
+            m_CurrentGarage.RechargeElectric(i_VehicleId, i_AmountToRecharge);
         }
 
         private void showVehicleDetails()
@@ -334,7 +382,7 @@ Pleaes pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
                     OutputManager.ShowMessage("Please enter current engine energy.");
                     io_NewVehicleToUpdate.Engine.CurrentEnergy = InputManager.GetInputAndConvertToFloat();
                     OutputManager.ShowMessage("Please enter the wheels manufacturer.");
-                    io_NewVehicleToUpdate.SetWheelsManufacturerName = InputManager.GetUserInput().ToString();
+                    io_NewVehicleToUpdate.SetWheelsManufacturerName(InputManager.GetUserInput().ToString());
                     OutputManager.ShowMessage("Please enter the current wheels' air pressure.");
                     io_NewVehicleToUpdate.SetWheelsAirPressure(InputManager.GetInputAndConvertToFloat());
                     isInputValid = true;
@@ -369,7 +417,7 @@ Pleaes pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
                 }
                 catch (FormatException ex)
                 {
-                    OutputManager.ShowErrorMessage(@"");
+                    OutputManager.ShowErrorMessage(string.Format("Invalid Input. {0}", ex.Message));
                 }
                 catch (ValueOutOfRangeException ex)
                 {
@@ -445,7 +493,7 @@ Please enter a positive number only.");
         {
             if (!(i_ToCheck <= i_MaxValue && i_ToCheck >= i_MinValue))
             {
-                throw new ValueOutOfRangeException(i_MinValue, i_MaxValue);
+                throw new ValueOutOfRangeException(i_MinValue, i_MaxValue, "Number");
             }
         }
 

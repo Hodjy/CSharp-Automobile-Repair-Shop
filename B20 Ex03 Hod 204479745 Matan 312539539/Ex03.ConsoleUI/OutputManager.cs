@@ -50,11 +50,6 @@
             clearScreenAndPrint(stringToPrint);
         }
 
-        public static void ShowDisplayVehicleDetailsScreen()
-        {
-
-        }
-
         private static void clearScreenAndPrint(StringBuilder i_StringToPrint)
         {
             Console.Clear();
@@ -70,7 +65,6 @@
         public static void ShowErrorMessage(string i_StringToShow)
         {
             Console.WriteLine(i_StringToShow);
-            Thread.Sleep(1000);
         }
 
         private static StringBuilder getAppropriateEnumMenu<T>()
@@ -81,6 +75,7 @@
             foreach (string enumMember in Enum.GetNames(typeof(T)))
             {
                 stringToPrint.AppendFormat("{0}. {1}", menuIndex, enumMember);
+                stringToPrint.AppendLine();
                 menuIndex++;
             }
 

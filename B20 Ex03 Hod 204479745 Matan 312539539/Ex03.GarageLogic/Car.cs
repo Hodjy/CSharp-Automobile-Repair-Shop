@@ -48,7 +48,7 @@
 
         public enum eColor
         {
-            Red,
+            Red = 1,
             White,
             Black,
             Silver,
