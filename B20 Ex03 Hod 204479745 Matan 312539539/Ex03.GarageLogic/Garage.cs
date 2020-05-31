@@ -29,7 +29,7 @@
 
         public void ChangeVehicleState(string i_VehicleId, StoredVehicle.eVehicleState i_NewState)
         {
-            StoredVehicle vehicleToChangeState = null;
+            StoredVehicle vehicleToChangeState;
 
             vehicleToChangeState = m_StoredVehiclesDictionary[i_VehicleId.GetHashCode()];
             vehicleToChangeState.VehicleState = i_NewState;
@@ -79,7 +79,7 @@
             vehicleToInflate.Vehicle.InflateAllWheelsToMax();
         }
 
-        public StringBuilder GetAllVehiclesIdByFilter(StoredVehicle.eVehicleState? i_StateFilter = null) // not done, needs to be changed.
+        public StringBuilder GetAllVehiclesIdByFilter(StoredVehicle.eVehicleState? i_StateFilter = null) 
         {
             StringBuilder vehiclesIdStringList = new StringBuilder(string.Empty);
             int           i = 1;

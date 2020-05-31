@@ -101,10 +101,77 @@ Pleaes pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
 
         private void showFilteredId()
         {
+            int           userChoice,enumLength;
+            StringBuilder stringOfIdToPrint;
+            bool isInputValid = false;
 
+            enumLength = Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length;
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowFilterByVehicleStateScreen();
+                    userChoice = InputManager.GetInputAndConvertToInt();
+                    userChoice++;
+                    isInRange(userChoice, 1, (enumLength + 1));
+                    stringOfIdToPrint = getFilteredVehicleId(userChoice);
+                    OutputManager.ShowMessage(stringOfIdToPrint.ToString());
+                    pressToContinue();
+                    isInputValid = true;
+                }
+                catch (FormatException ex)
+                {
+                    OutputManager.ShowErrorMessage("Invalid input. You can only enter numbers.");
+                }
+                catch (ValueOutOfRangeException ex)
+                {
+                    OutputManager.ShowErrorMessage(string.Format("Invalid input. numbers must be between {0} to {1}.",
+                                                   ex.MinValue, ex.MaxValue));
+                }
+            }
+        }
+
+        private StringBuilder getFilteredVehicleId(int i_UserChoice)
+        {
+            int maxEnumLength = Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length;
+            StringBuilder stringToReturn = new StringBuilder();
+
+            if (i_UserChoice == (maxEnumLength + 1))
+            {
+                m_CurrentGarage.GetAllVehiclesIdByFilter();
+            }
+            else
+            {
+                m_CurrentGarage.GetAllVehiclesIdByFilter((StoredVehicle.eVehicleState)i_UserChoice);
+            }
+
+            return stringToReturn;
         }
 
         private void changeVehicleState()
+        {
+            int           stateChoiceInput;
+            bool          isInputValid = false;
+            StringBuilder vehicleIdInput;
+
+            while (!isInputValid)
+            {
+                try
+                {
+                    OutputManager.ShowMessage("Please enter desired vehicle's id:");
+                    vehicleIdInput = InputManager.GetUserInput();
+                    stateChoiceInput = InputManager.GetInputAndConvertToInt();
+                    isInRange(stateChoiceInput,0,Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length);
+                    m_CurrentGarage.ChangeVehicleState(vehicleIdInput.ToString(), (StoredVehicle.eVehicleState)stateChoiceInput);
+                }
+                catch 
+                {
+
+                }
+            }
+        }
+
+        private StoredVehicle getVehicleById()
         {
 
         }
@@ -156,7 +223,7 @@ Pleaes pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
                 try
                 {
                     OutputManager.ShowMessage("Please enter the owner name:");
-                    o_VehicleOwnerToUpdate.Name = InputManager.GetUserInput();
+                    o_VehicleOwnerToUpdate.Name = InputManager.GetUserInput().ToString();
                     isInputValid = true;
                 }
                 catch (ArgumentException ex)
@@ -176,7 +243,7 @@ Owner name must contain only letters.");
                 try
                 {
                     OutputManager.ShowMessage("Please enter the owners phone number:");
-                    o_VehicleOwnerToUpdate.PhoneNumber = InputManager.GetUserInput();
+                    o_VehicleOwnerToUpdate.PhoneNumber = InputManager.GetUserInput().ToString();
                     isInputValid = true;
                 }
                 catch (ArgumentException ex)
@@ -277,9 +344,9 @@ Please pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
         private void getVehicleProperties(ref Vehicle io_NewVehicleToUpdate)
         {
             OutputManager.ShowMessage("Please enter the vehicle license number");
-            io_NewVehicleToUpdate.ID = InputManager.GetUserInput();
+            io_NewVehicleToUpdate.ID = InputManager.GetUserInput().ToString();
             OutputManager.ShowMessage("Please enter the vehicle model name");
-            io_NewVehicleToUpdate.ModelName = InputManager.GetUserInput();
+            io_NewVehicleToUpdate.ModelName = InputManager.GetUserInput().ToString();
 
             getEngineCurrentEnergy(ref io_NewVehicleToUpdate);
             getWheelsCurrentAirPressure(ref io_NewVehicleToUpdate);
@@ -494,6 +561,12 @@ Please enter a positive number only.");
             {
                 throw new ValueOutOfRangeException(i_MinValue, i_MaxValue);
             }
+        }
+
+        private void pressToContinue()
+        {
+            OutputManager.ShowMessage("Press any key to continue");
+            InputManager.GetUserInput();
         }
     }
 }

@@ -7,6 +7,12 @@
 
     static class OutputManager
     {
+        public static void ShowWelcomeMessage()
+        {
+            ShowMessage("Welcome!");
+            Thread.Sleep(1000);
+        }
+
         public static void ShowMainMenuScreen()
         {
             StringBuilder stringToPrint = new StringBuilder();
@@ -26,8 +32,48 @@
         {
             StringBuilder stringToPrint = new StringBuilder();
 
-            stringToPrint.AppendLine(@"Please enter the number of the desired vehicle:");
+            stringToPrint.AppendLine("Please enter the number of the desired vehicle:");
             stringToPrint.Append(getAppropriateEnumMenu<VehicleFactory.eVehicleType>());
+            clearScreenAndPrint(stringToPrint);
+        }
+
+        public static void ShowEnterNewEngineScreen()
+        {
+            StringBuilder stringToPrint = new StringBuilder();
+
+            stringToPrint.AppendLine("Please enter the number of the desired engine type:");
+            stringToPrint.Append(getAppropriateEnumMenu<VehicleFactory.eEngineType>());
+            clearScreenAndPrint(stringToPrint);
+        }
+
+        public static void ShowCarColorScreen()
+        {
+            StringBuilder stringToPrint = new StringBuilder();
+
+            stringToPrint.AppendLine("Please enter the number of the desired color:");
+            stringToPrint.Append(getAppropriateEnumMenu<Car.eColor>());
+            clearScreenAndPrint(stringToPrint);
+        }
+
+        public static void ShowFilterByVehicleStateScreen()
+        {
+            StringBuilder stringToPrint = new StringBuilder();
+            int           enumLength;
+
+            enumLength = Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length;
+            stringToPrint.AppendLine("Please enter the number of the desired filter:");
+            stringToPrint.Append(getAppropriateEnumMenu<StoredVehicle.eVehicleState>());
+            stringToPrint.AppendLine();
+            stringToPrint.AppendFormat("{0}. No Filter.", (enumLength + 1));
+            clearScreenAndPrint(stringToPrint);
+        }
+
+        public static void ShowMotorbikeLicenseScreen()
+        {
+            StringBuilder stringToPrint = new StringBuilder();
+
+            stringToPrint.AppendLine("Please enter the number of the desired licence type:");
+            stringToPrint.Append(getAppropriateEnumMenu<Motorbike.eLicenseType>());
             clearScreenAndPrint(stringToPrint);
         }
 
@@ -43,7 +89,7 @@
         {
             StringBuilder stringToPrint = new StringBuilder();
 
-            stringToPrint.AppendLine(@"Please enter the number of the desired vehicle's new state:");
+            stringToPrint.AppendLine("Please enter the number of the desired vehicle's new state:");
             stringToPrint.Append(getAppropriateEnumMenu<StoredVehicle.eVehicleState>());
             clearScreenAndPrint(stringToPrint);
         }
