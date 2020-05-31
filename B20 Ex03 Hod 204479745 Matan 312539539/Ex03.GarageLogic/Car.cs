@@ -5,8 +5,8 @@
         private int m_AmountOfDoors;
         private eColor m_CarColor;
 
-        public Car(string i_Id, string i_ModelName, Engine i_Engine, int i_AmountOfDoors, eColor i_CarColor) :
-            base(i_Id, i_ModelName, i_Engine, 4)
+        public Car(string i_Id, string i_ModelName, Engine i_Engine, float i_MaxWheelsAirPressure, int i_AmountOfDoors, eColor i_CarColor) :
+            base(i_Id, i_ModelName, i_Engine, i_MaxWheelsAirPressure, 4)
         {
             AmountOfDoors = i_AmountOfDoors;
             CarColor = i_CarColor;
@@ -28,7 +28,7 @@
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException(minValue, maxValue);
+                    throw new ValueOutOfRangeException(minValue, maxValue,"Amount of doors");
                 }
                 
             }

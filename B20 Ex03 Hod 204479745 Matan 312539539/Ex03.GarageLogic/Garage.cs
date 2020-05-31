@@ -21,7 +21,7 @@
             isVehicleIdAlreadyRegistered = m_StoredVehiclesDictionary.ContainsKey(i_VehicleToStore.GetHashCode());
             if (isVehicleIdAlreadyRegistered)
             {
-                throw new ArgumentException();
+                throw new ArgumentException(string.Format("ID: {0} is already registered.", i_VehicleToStore.ID));
             }
 
             m_StoredVehiclesDictionary.Add(i_VehicleToStore.GetHashCode(), newVehicle);
@@ -29,9 +29,9 @@
 
         public void ChangeVehicleState(string i_VehicleId, StoredVehicle.eVehicleState i_NewState)
         {
-            StoredVehicle vehicleToChangeState = null;
+            StoredVehicle vehicleToChangeState;
 
-            vehicleToChangeState = m_StoredVehiclesDictionary[i_VehicleId.GetHashCode()];
+            vehicleToChangeState = getStoredVehicle(i_VehicleId);
             vehicleToChangeState.VehicleState = i_NewState;
         }
 
@@ -41,15 +41,16 @@
             FuelEngine        engineToRecharge = null;
             bool              isEngineFuel = false;
 
-            vehicleToRecharge = m_StoredVehiclesDictionary[i_VehicleId.GetHashCode()];
+            vehicleToRecharge = getStoredVehicle(i_VehicleId);
             isEngineFuel = vehicleToRecharge.Vehicle.Engine is FuelEngine;
             if (!isEngineFuel)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Engine is not FuelEngine.");
             }
 
             engineToRecharge = (vehicleToRecharge.Vehicle.Engine as FuelEngine);            
             engineToRecharge.Recharge(i_AmountToRecharge, i_FuelType); // if not fuel engine, if wrong fuel type, if amount too high.
+            vehicleToRecharge.Vehicle.calculateCurrentEnergyPercent();
         }
 
         public void RechargeElectric(string i_VehicleId, float i_AmountToRecharge)
@@ -58,26 +59,27 @@
             ElectricEngine engineToRecharge = null;
             bool           isEngineElectric = false;
 
-            vehicleToRecharge = m_StoredVehiclesDictionary[i_VehicleId.GetHashCode()];
+            vehicleToRecharge = getStoredVehicle(i_VehicleId);
             isEngineElectric = vehicleToRecharge.Vehicle.Engine is ElectricEngine;
             if(!isEngineElectric)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Engine is not ElectricEngine.");
             }
 
             engineToRecharge = (vehicleToRecharge.Vehicle.Engine as ElectricEngine);
             engineToRecharge.Recharge(i_AmountToRecharge);
+            vehicleToRecharge.Vehicle.calculateCurrentEnergyPercent();
         }
 
         public void InflateVehicleWheelsToMaximumCapacity(string i_VehicleId)
         {
-            StoredVehicle vehicleToInflate = null;
+            StoredVehicle vehicleToInflate;
 
-            vehicleToInflate = m_StoredVehiclesDictionary[i_VehicleId.GetHashCode()];
+            vehicleToInflate = getStoredVehicle(i_VehicleId);
             vehicleToInflate.Vehicle.InflateAllWheelsToMax();
         }
 
-        public StringBuilder GetAllVehiclesIdByFilter(StoredVehicle.eVehicleState? i_StateFilter = null) // not done, needs to be changed.
+        public StringBuilder GetAllVehiclesIdByFilter(StoredVehicle.eVehicleState? i_StateFilter = null) 
         {
             StringBuilder vehiclesIdStringList = new StringBuilder(string.Empty);
             int           i = 1;
@@ -103,9 +105,24 @@
 
         public string GetStoredVehicleDetailsString(string i_VehicleId)
         {
-            StoredVehicle vehicleToShowDetails = m_StoredVehiclesDictionary[i_VehicleId.GetHashCode()];
+            StoredVehicle vehicleToShowDetails;
 
+            vehicleToShowDetails = getStoredVehicle(i_VehicleId);
             return vehicleToShowDetails.ToString();
+        }
+
+        private StoredVehicle getStoredVehicle(string i_VehicleId)
+        {
+            StoredVehicle storedVehicleToSend;
+            bool          isKeyInDictionary = false;
+
+            isKeyInDictionary = m_StoredVehiclesDictionary.TryGetValue(i_VehicleId.GetHashCode(), out storedVehicleToSend);
+            if (!isKeyInDictionary)
+            {
+                throw new ArgumentException(string.Format("There isnt a vehicle with ID: {0} at the garage", i_VehicleId));
+            }
+
+            return storedVehicleToSend;
         }
     }
 }

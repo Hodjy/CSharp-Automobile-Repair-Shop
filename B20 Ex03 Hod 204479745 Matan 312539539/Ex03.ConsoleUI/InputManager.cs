@@ -7,7 +7,7 @@
     {
         public static int GetInputAndConvertToInt()
         {
-            StringBuilder userInput = new StringBuilder(GetUserInput());
+            StringBuilder userInput = GetUserInput();
             int result;
 
             if (!(int.TryParse(userInput.ToString(), out result)))
@@ -20,7 +20,7 @@
 
         public static float GetInputAndConvertToFloat()
         {
-            StringBuilder userInput = new StringBuilder(GetUserInput());
+            StringBuilder userInput = GetUserInput();
             float result;
 
             if (!(float.TryParse(userInput.ToString(), out result)))
@@ -31,9 +31,12 @@
             return result;
         }
 
-        public static string GetUserInput()
+        public static StringBuilder GetUserInput()
         {
-            return Console.ReadLine();
+            StringBuilder userInput = new StringBuilder();
+
+            userInput.Append(Console.ReadLine());
+            return userInput;
         }
     }
 }

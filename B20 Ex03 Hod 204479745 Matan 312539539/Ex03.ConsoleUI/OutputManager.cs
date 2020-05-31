@@ -7,6 +7,12 @@
 
     static class OutputManager
     {
+        public static void ShowWelcomeMessage()
+        {
+            ShowMessage("Welcome!");
+            Thread.Sleep(1000);
+        }
+
         public static void ShowMainMenuScreen()
         {
             StringBuilder stringToPrint = new StringBuilder();
@@ -22,44 +28,25 @@
             clearScreenAndPrint(stringToPrint);
         }
 
-        public static void ShowEnterNewVehicleScreen()
+        public static void ShowScreen<T>(string i_MessageBeforeEnum)
         {
             StringBuilder stringToPrint = new StringBuilder();
 
-            stringToPrint.Append("");
-        }
-
-        public static void ShowAskVehicleIdMessage()
-        {
-            StringBuilder stringToPrint = new StringBuilder();
-
-            stringToPrint.Append("Please enter the desired vehicle's ID:");
+            stringToPrint.AppendLine(i_MessageBeforeEnum);
+            stringToPrint.Append(getAppropriateEnumMenu<T>());
             clearScreenAndPrint(stringToPrint);
         }
 
-        public static void ShowChangeVehicleStateScreen()
+        public static void ShowFilterByVehicleStateScreen()
         {
             StringBuilder stringToPrint = new StringBuilder();
+            int           enumLength;
 
-            stringToPrint.AppendLine(@"Please enter the number of the desired vehicle's new state:");
-            stringToPrint.Append(GetAppropriateEnumMenu<StoredVehicle.eVehicleState>());
-            clearScreenAndPrint(stringToPrint);
-        }
-
-        public static void ShowInflateWheelsScreen()
-        {
-            StringBuilder stringToPrint = new StringBuilder();
-
-            stringToPrint.Append("Wheels successfully Inflated.");
-            clearScreenAndPrint(stringToPrint);
-        }
-
-        public static void ShowRechargeVehicleScreen()
-        {
-            StringBuilder stringToPrint = new StringBuilder();
-
-            stringToPrint.AppendLine("Please enter the number of the fuel type:");
-            stringToPrint.Append(GetAppropriateEnumMenu<FuelEngine.eFuelType>());
+            enumLength = Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length;
+            stringToPrint.AppendLine("Please enter the number of the desired filter:");
+            stringToPrint.Append(getAppropriateEnumMenu<StoredVehicle.eVehicleState>());
+            stringToPrint.AppendLine();
+            stringToPrint.AppendFormat("{0}. No Filter.", (enumLength + 1));
             clearScreenAndPrint(stringToPrint);
         }
 
@@ -79,15 +66,14 @@
             Console.Clear();
             Console.WriteLine(i_StringToShow);
         }
-
-
+        
         public static void ShowErrorMessage(string i_StringToShow)
         {
             Console.WriteLine(i_StringToShow);
             Thread.Sleep(1000);
         }
 
-        public static StringBuilder GetAppropriateEnumMenu<T>()
+        private static StringBuilder getAppropriateEnumMenu<T>()
         {
             int menuIndex = 1;
             StringBuilder stringToPrint = new StringBuilder();
