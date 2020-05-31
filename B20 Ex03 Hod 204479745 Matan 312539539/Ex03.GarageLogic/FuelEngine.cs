@@ -18,7 +18,8 @@
             isProperFuelType = i_FuelType == m_EngineFuelType;
             if (!isProperFuelType)
             {
-                throw new ArgumentException();
+                throw new ArgumentException(string.Format("Not correct fuel type. needs to be {0}",
+                                                          m_EngineFuelType.ToString()));
             }
 
             rechargeEnergy(i_AmountToRecharge);

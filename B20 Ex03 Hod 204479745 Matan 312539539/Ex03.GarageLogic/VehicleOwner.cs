@@ -22,7 +22,7 @@
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Name cannot be empty, and contain only letters.");
                 }
             }
         }
@@ -38,7 +38,7 @@
             {
                 if (!checkIfStringIsOnlyDigits(value))
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Phone number must contain only digits.");
                 }
 
                 m_PhoneNumber = value;

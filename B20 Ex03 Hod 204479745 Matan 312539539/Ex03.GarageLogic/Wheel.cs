@@ -53,7 +53,7 @@
             }
             else
             {
-                throw new ValueOutOfRangeException(0, r_MaxAirPressure - m_CurrentAirPressure);
+                throw new ValueOutOfRangeException(0, r_MaxAirPressure - m_CurrentAirPressure, "Air Pressure");
             }
         }
 
