@@ -65,10 +65,9 @@
             return createdVehicle;
         }
 
-        // NOT DONE, REMEMBER TO CHANGE EMPTY STRINGS!
         private static Car createCar(Engine i_CreatedEngine)
         { 
-            Car createdVehicle = new Car(string.Empty, string.Empty, i_CreatedEngine, 2, Car.eColor.Black);
+            Car createdVehicle = new Car(string.Empty, string.Empty, i_CreatedEngine, 32f, 2, Car.eColor.Black);
 
             return createdVehicle;
         }
@@ -77,7 +76,7 @@
 
         private static Motorbike createMotorbike(Engine i_CreatedEngine)
         {
-            Motorbike createdVehicle = new Motorbike(string.Empty, string.Empty, i_CreatedEngine, 
+            Motorbike createdVehicle = new Motorbike(string.Empty, string.Empty, i_CreatedEngine, 30f,
                                                      Motorbike.eLicenseType.A, 0);
 
             return createdVehicle;
@@ -85,7 +84,7 @@
 
         private static Truck createTruck(Engine i_CreatedEngine)
         {
-            Truck createdVehicle = new Truck(string.Empty, string.Empty, i_CreatedEngine, false, 0);
+            Truck createdVehicle = new Truck(string.Empty, string.Empty, i_CreatedEngine, 28f, false, 0);
 
             return createdVehicle;
         }

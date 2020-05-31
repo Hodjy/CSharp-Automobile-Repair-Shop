@@ -11,13 +11,14 @@
         private string      m_ModelName;
         private string      m_Id;
 
-        public Vehicle(string i_Id, string i_ModelName, Engine i_Engine, int i_AmountOfWheels)
+        public Vehicle(string i_Id, string i_ModelName, Engine i_Engine, float i_MaxWheelsAirPressure, int i_AmountOfWheels)
         {
             m_Id = i_Id;
             m_ModelName = i_ModelName;
             m_Engine = i_Engine;
             m_CurrentEnergyPercent = (m_Engine.CurrentEnergy * 100) / m_Engine.MaxEnergy; 
             m_Wheels = new List<Wheel>(i_AmountOfWheels);
+            InitializeWheels(i_MaxWheelsAirPressure);
         }
 
         public string ID
@@ -65,11 +66,11 @@
             m_CurrentEnergyPercent = (m_Engine.CurrentEnergy * 100) / m_Engine.MaxEnergy;
         }
 
-        public void InitializeWheels(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
+        public void InitializeWheels(float i_MaxAirPressure)
         {
-            for (int i = 0 ; i < m_Wheels.Capacity ; i++)
+            foreach (Wheel wheel in m_Wheels)
             {
-                m_Wheels.Add(new Wheel(i_ManufacturerName, i_CurrentAirPressure, i_MaxAirPressure));
+                m_Wheels.Add(new Wheel(string.Empty, 0, i_MaxAirPressure));
             }
         }
 

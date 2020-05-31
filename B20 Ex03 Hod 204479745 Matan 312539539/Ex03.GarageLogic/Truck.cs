@@ -7,9 +7,9 @@
         private bool  m_IsContainingDangerousProducts;
         private float m_CargoVolume;
 
-        public Truck(string i_Id, string i_ModelName, Engine i_Engine, bool i_IsContainingDangerousProducts,
+        public Truck(string i_Id, string i_ModelName, Engine i_Engine, float i_MaxWheelsAirPressure, bool i_IsContainingDangerousProducts,
             float i_CargotVolume) : 
-            base(i_Id, i_ModelName, i_Engine, 16)
+            base(i_Id, i_ModelName, i_Engine, i_MaxWheelsAirPressure, 16)
         {
             m_IsContainingDangerousProducts = i_IsContainingDangerousProducts;
             m_CargoVolume = i_CargotVolume;
@@ -35,14 +35,12 @@
             }
             set
             {
-                if (value >= 0 && value <= 99999f)
+                if (value < 0)
                 {
-                    m_CargoVolume = value;
+                    throw new ArgumentException("Cargo volume cannot be lower than 0.");
                 }
-                else
-                {
-                    throw new ArgumentException();
-                }
+
+                m_CargoVolume = value;
             }
         }
 

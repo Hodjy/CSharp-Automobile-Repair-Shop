@@ -20,7 +20,7 @@
             isAmountInRange = ((i_AmountToRecharge + m_CurrentEnergy) <= r_MaxEnergy);
             if (!isAmountInRange)
             {
-                throw new ValueOutOfRangeException(0, r_MaxEnergy - m_CurrentEnergy);
+                throw new ValueOutOfRangeException(0, r_MaxEnergy - m_CurrentEnergy, "Amount to recharge");
             }
 
             m_CurrentEnergy += i_AmountToRecharge;
@@ -36,7 +36,7 @@
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Current energy cannot be lower than 0");
                 }
 
                 m_CurrentEnergy = value;
