@@ -63,12 +63,12 @@
 
         public void calculateCurrentEnergyPercent()
         {
-            m_CurrentEnergyPercent = (m_Engine.CurrentEnergy * 100) / m_Engine.MaxEnergy;
+            m_CurrentEnergyPercent = (m_Engine.CurrentEnergy / m_Engine.MaxEnergy) * 100f;
         }
 
         public void InitializeWheels(float i_MaxAirPressure)
         {
-            foreach (Wheel wheel in m_Wheels)
+            for (int i = 0 ; i < m_Wheels.Capacity ; i++)
             {
                 m_Wheels.Add(new Wheel(string.Empty, 0, i_MaxAirPressure));
             }
@@ -116,11 +116,11 @@
 
         public override string ToString()
         {
-            StringBuilder VehicleDetails = new StringBuilder(string.Format(@"Vehicle ID: {0},
-Model Name: {1},
-Engine: {2},
-Current % Energy: {3}
-",
+            StringBuilder VehicleDetails = new StringBuilder(string.Format(@"Vehicle ID: {0}
+Model Name: {1}
+Engine: 
+{2}
+Current % Energy: {3}",
 m_Id,
 m_ModelName,
 m_Engine,

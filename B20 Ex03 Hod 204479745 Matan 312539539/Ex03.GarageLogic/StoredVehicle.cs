@@ -72,8 +72,10 @@
 
         public override string ToString()
         {
-            return string.Format(@"Vehicle Owner: {0}
-Vehicle: {1},
+            return string.Format(@"Vehicle Owner:
+{0}
+Vehicle:
+{1}
 State: {2}",
 m_Owner,
 Vehicle,

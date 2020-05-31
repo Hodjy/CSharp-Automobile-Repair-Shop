@@ -88,13 +88,13 @@
             {
                 if (i_StateFilter == null)
                 {
-                    vehiclesIdStringList.AppendFormat(string.Format(@"{0,-3}. {1,13} {2,6}
+                    vehiclesIdStringList.AppendFormat(string.Format(@"{0,3}. {1,13} {2,-6}
 ", i, entry.Value.Vehicle.ID, entry.Value.VehicleState));
                     i++;
                 }
                 else if (i_StateFilter == entry.Value.VehicleState)
                 {
-                    vehiclesIdStringList.AppendFormat(string.Format(@"{0,-3}. {1,13} {2,6}
+                    vehiclesIdStringList.AppendFormat(string.Format(@"{0,3}. {1,13} {2,-6}
 ", i, entry.Value.Vehicle.ID, entry.Value.VehicleState));
                     i++;
                 }

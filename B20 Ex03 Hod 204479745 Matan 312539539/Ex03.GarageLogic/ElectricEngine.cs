@@ -11,5 +11,10 @@
             float amountToRechargeInHours = i_AmountToRecharge / 60f;
             rechargeEnergy(amountToRechargeInHours);
         }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

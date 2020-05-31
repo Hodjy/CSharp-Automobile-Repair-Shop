@@ -58,7 +58,6 @@
 
         public static void ShowMessage(string i_StringToShow)
         {
-            Console.Clear();
             Console.WriteLine(i_StringToShow);
         }
         

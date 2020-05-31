@@ -50,5 +50,10 @@
                 return r_MaxEnergy;
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format(@"Engine type: {0}", this.GetType());
+        }
     }
 }

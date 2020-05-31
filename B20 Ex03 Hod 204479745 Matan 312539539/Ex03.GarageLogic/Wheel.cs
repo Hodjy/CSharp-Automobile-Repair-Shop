@@ -1,5 +1,7 @@
 ﻿namespace Ex03.GarageLogic
 {
+    using System;
+
     public class Wheel
     {
         string         m_ManufacturerName;
@@ -33,6 +35,11 @@
             }
             set
             {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Current air pressure cannot be lower than 0");
+                }
+
                 m_CurrentAirPressure = value;
             }
         }
