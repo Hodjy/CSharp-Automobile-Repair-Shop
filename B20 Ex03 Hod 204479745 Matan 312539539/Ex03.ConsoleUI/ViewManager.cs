@@ -160,6 +160,7 @@ Pleaes pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
                 {
                     OutputManager.ShowMessage("Please enter desired vehicle's id:");
                     vehicleIdInput = InputManager.GetUserInput();
+                    OutputManager.ShowScreen<StoredVehicle.eVehicleState>("Please enter the number of the desired vehicle's new state:");
                     stateChoiceInput = InputManager.GetInputAndConvertToInt();
                     isInRange(stateChoiceInput,0,Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length);
                     m_CurrentGarage.ChangeVehicleState(vehicleIdInput.ToString(), (StoredVehicle.eVehicleState)stateChoiceInput);
@@ -265,7 +266,7 @@ Phone number must contain only numbers.");
             {
                 try
                 {
-                    OutputManager.ShowEnterNewVehicleScreen();
+                    OutputManager.ShowScreen<VehicleFactory.eVehicleType>("Please enter the number of the desired vehicle:");
                     userInput = InputManager.GetInputAndConvertToInt();
                     isInRange(userInput, 1, Enum.GetValues(typeof(VehicleFactory.eVehicleType)).Length);
                     isInputValid = true;
@@ -298,7 +299,7 @@ Please pick a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
             {
                 try
                 {
-                    OutputManager.ShowEnterNewEngineScreen();
+                    OutputManager.ShowScreen<VehicleFactory.eEngineType>("Please enter the number of the desired engine type:");
                     userInput = InputManager.GetInputAndConvertToInt();
                     isInRange(userInput, 1, Enum.GetValues(typeof(VehicleFactory.eEngineType)).Length);
                     isInputValid = true;
@@ -442,7 +443,7 @@ Please enter a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
             {
                 try
                 {
-                    OutputManager.ShowCarColorScreen();
+                    OutputManager.ShowScreen<Car.eColor>("Please enter the number of the desired color:");
                     userInput = InputManager.GetInputAndConvertToInt();
                     isInRange(userInput, 1, Enum.GetValues(typeof(Car.eColor)).Length);
                     isInputValid = true;
@@ -477,7 +478,7 @@ Please enter a number between {0} to {1}.", ex.MinValue, ex.MaxValue));
             {
                 try
                 {
-                    OutputManager.ShowMotorbikeLicenseScreen();
+                    OutputManager.ShowScreen<Motorbike.eLicenseType>("Please enter the number of the desired licence type:");
                     userInput = InputManager.GetInputAndConvertToInt();
                     isInRange(userInput, 1, Enum.GetValues(typeof(Motorbike.eLicenseType)).Length);
                     isInputValid = true;

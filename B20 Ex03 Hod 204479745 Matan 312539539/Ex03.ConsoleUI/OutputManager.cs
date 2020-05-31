@@ -28,30 +28,12 @@
             clearScreenAndPrint(stringToPrint);
         }
 
-        public static void ShowEnterNewVehicleScreen()
+        public static void ShowScreen<T>(string i_MessageBeforeEnum)
         {
             StringBuilder stringToPrint = new StringBuilder();
 
-            stringToPrint.AppendLine("Please enter the number of the desired vehicle:");
-            stringToPrint.Append(getAppropriateEnumMenu<VehicleFactory.eVehicleType>());
-            clearScreenAndPrint(stringToPrint);
-        }
-
-        public static void ShowEnterNewEngineScreen()
-        {
-            StringBuilder stringToPrint = new StringBuilder();
-
-            stringToPrint.AppendLine("Please enter the number of the desired engine type:");
-            stringToPrint.Append(getAppropriateEnumMenu<VehicleFactory.eEngineType>());
-            clearScreenAndPrint(stringToPrint);
-        }
-
-        public static void ShowCarColorScreen()
-        {
-            StringBuilder stringToPrint = new StringBuilder();
-
-            stringToPrint.AppendLine("Please enter the number of the desired color:");
-            stringToPrint.Append(getAppropriateEnumMenu<Car.eColor>());
+            stringToPrint.AppendLine(i_MessageBeforeEnum);
+            stringToPrint.Append(getAppropriateEnumMenu<T>());
             clearScreenAndPrint(stringToPrint);
         }
 
@@ -65,49 +47,6 @@
             stringToPrint.Append(getAppropriateEnumMenu<StoredVehicle.eVehicleState>());
             stringToPrint.AppendLine();
             stringToPrint.AppendFormat("{0}. No Filter.", (enumLength + 1));
-            clearScreenAndPrint(stringToPrint);
-        }
-
-        public static void ShowMotorbikeLicenseScreen()
-        {
-            StringBuilder stringToPrint = new StringBuilder();
-
-            stringToPrint.AppendLine("Please enter the number of the desired licence type:");
-            stringToPrint.Append(getAppropriateEnumMenu<Motorbike.eLicenseType>());
-            clearScreenAndPrint(stringToPrint);
-        }
-
-        public static void ShowAskVehicleIdMessage()
-        {
-            StringBuilder stringToPrint = new StringBuilder();
-
-            stringToPrint.Append("Please enter the desired vehicle's ID:");
-            clearScreenAndPrint(stringToPrint);
-        }
-
-        public static void ShowChangeVehicleStateScreen()
-        {
-            StringBuilder stringToPrint = new StringBuilder();
-
-            stringToPrint.AppendLine("Please enter the number of the desired vehicle's new state:");
-            stringToPrint.Append(getAppropriateEnumMenu<StoredVehicle.eVehicleState>());
-            clearScreenAndPrint(stringToPrint);
-        }
-
-        public static void ShowInflateWheelsScreen()
-        {
-            StringBuilder stringToPrint = new StringBuilder();
-
-            stringToPrint.Append("Wheels successfully Inflated.");
-            clearScreenAndPrint(stringToPrint);
-        }
-
-        public static void ShowRechargeVehicleScreen()
-        {
-            StringBuilder stringToPrint = new StringBuilder();
-
-            stringToPrint.AppendLine("Please enter the number of the fuel type:");
-            stringToPrint.Append(getAppropriateEnumMenu<FuelEngine.eFuelType>());
             clearScreenAndPrint(stringToPrint);
         }
 
