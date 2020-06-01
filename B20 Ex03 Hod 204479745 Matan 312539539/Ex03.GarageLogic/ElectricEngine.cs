@@ -12,6 +12,23 @@
             rechargeEnergy(amountToRechargeInHours);
         }
 
+        public override float CurrentEnergy
+        {
+            get
+            {
+                return m_CurrentEnergy;
+            }
+            set
+            {
+                if (value > r_MaxEnergy * 60)
+                {
+                    throw new ValueOutOfRangeException(0, r_MaxEnergy * 60, "Engine energy");
+                }
+
+                base.CurrentEnergy = value / 60f;
+            }
+        }
+
         public override string ToString()
         {
             return base.ToString();

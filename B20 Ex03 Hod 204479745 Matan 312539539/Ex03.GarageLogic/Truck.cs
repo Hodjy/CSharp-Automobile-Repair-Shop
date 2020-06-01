@@ -46,8 +46,8 @@
 
         public override string ToString()
         {
-            return string.Format(@"{0},
-Cargo Volume: {1},
+            return string.Format(@"{0}
+Cargo Volume: {1}
 Containing Dangerous Products: {2}",
 base.ToString(),
 m_CargoVolume,

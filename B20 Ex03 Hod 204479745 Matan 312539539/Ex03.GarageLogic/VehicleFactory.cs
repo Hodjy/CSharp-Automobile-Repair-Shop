@@ -72,8 +72,6 @@
             return createdVehicle;
         }
 
-        
-
         private static Motorbike createMotorbike(Engine i_CreatedEngine)
         {
             Motorbike createdVehicle = new Motorbike(string.Empty, string.Empty, i_CreatedEngine, 30f,

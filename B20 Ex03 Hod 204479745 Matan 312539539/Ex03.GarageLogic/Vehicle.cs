@@ -16,7 +16,7 @@
             m_Id = i_Id;
             m_ModelName = i_ModelName;
             m_Engine = i_Engine;
-            m_CurrentEnergyPercent = (m_Engine.CurrentEnergy * 100) / m_Engine.MaxEnergy; 
+            calculateCurrentEnergyPercent(); 
             m_Wheels = new List<Wheel>(i_AmountOfWheels);
             InitializeWheels(i_MaxWheelsAirPressure);
         }
@@ -116,11 +116,13 @@
 
         public override string ToString()
         {
-            StringBuilder VehicleDetails = new StringBuilder(string.Format(@"Vehicle ID: {0}
+            StringBuilder VehicleDetails = new StringBuilder(string.Format(@"ID: {0}
 Model Name: {1}
 Engine: 
 {2}
-Current % Energy: {3}",
+Current % Energy: {3}
+Wheels:
+",
 m_Id,
 m_ModelName,
 m_Engine,
