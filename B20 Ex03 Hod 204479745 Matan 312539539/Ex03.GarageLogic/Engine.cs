@@ -34,18 +34,16 @@
             }
             set
             {
-                if (value >= 0 && value <= r_MaxEnergy)
-                {
-                    m_CurrentEnergy = value;
-                }
-                else if (value < 0)
+                if (value < 0)
                 {
                     throw new ArgumentException("Current energy cannot be lower than 0");
                 }
-                else
+                else if (value > r_MaxEnergy)
                 {
                     throw new ValueOutOfRangeException(0, r_MaxEnergy, "Engine energy");
                 }
+                
+                m_CurrentEnergy = value;
             }
         }
 
