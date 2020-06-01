@@ -397,6 +397,10 @@
                 {
                     OutputManager.ShowErrorMessage(string.Format("{0}", ex.Message));
                 }
+                catch (ValueOutOfRangeException ex)
+                {
+                    OutputManager.ShowErrorMessage(string.Format("Input out of range. {0}", ex.Message));
+                }
             }
         }
 
@@ -440,7 +444,7 @@
                     OutputManager.ShowScreen<Motorbike.eLicenseType>("Please enter the number of the desired licence type:");
                     userInput = InputManager.GetInputAndConvertToInt();
                     isInRange(userInput, 1, Enum.GetValues(typeof(Motorbike.eLicenseType)).Length);
-                    io_MotorbikeToUpdate.License = (Motorbike.eLicenseType)InputManager.GetInputAndConvertToInt();
+                    io_MotorbikeToUpdate.License = (Motorbike.eLicenseType)userInput;
                     OutputManager.ShowMessage("Please enter the motorbike engine volume.");
                     io_MotorbikeToUpdate.EngineVolume = InputManager.GetInputAndConvertToInt();
                     isInputValid = true;

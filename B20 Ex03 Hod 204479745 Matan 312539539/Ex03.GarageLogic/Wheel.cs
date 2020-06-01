@@ -35,12 +35,20 @@
             }
             set
             {
-                if (value < 0)
+                if (value >= 0 && value <= r_MaxAirPressure)
+                {
+                    m_CurrentAirPressure = value;
+                }
+                else if (value < 0)
                 {
                     throw new ArgumentException("Current air pressure cannot be lower than 0");
                 }
+                else
+                {
+                    throw new ValueOutOfRangeException(0, r_MaxAirPressure, "Air Pressure");
+                }
 
-                m_CurrentAirPressure = value;
+               
             }
         }
 
@@ -66,8 +74,8 @@
 
         public override string ToString()
         {
-            return string.Format(@"Manufacturer name: {0}, 
-Current Air Pressure: {1},
+            return string.Format(@"Manufacturer name: {0}
+Current Air Pressure: {1}
 Max Air Pressure: {2}", 
 m_ManufacturerName,
 m_CurrentAirPressure,

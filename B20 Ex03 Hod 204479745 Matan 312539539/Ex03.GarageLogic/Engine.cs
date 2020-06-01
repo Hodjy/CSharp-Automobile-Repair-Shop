@@ -26,7 +26,7 @@
             m_CurrentEnergy += i_AmountToRecharge;
         }
 
-        public float CurrentEnergy
+        public virtual float CurrentEnergy
         {
             get
             {
@@ -38,7 +38,11 @@
                 {
                     throw new ArgumentException("Current energy cannot be lower than 0");
                 }
-
+                else if (value > r_MaxEnergy)
+                {
+                    throw new ValueOutOfRangeException(0, r_MaxEnergy, "Engine energy");
+                }
+                
                 m_CurrentEnergy = value;
             }
         }
@@ -53,7 +57,7 @@
 
         public override string ToString()
         {
-            return string.Format(@"Engine type: {0}", this.GetType());
+            return string.Format(@"Engine type: {0}", this.GetType().Name);
         }
     }
 }
