@@ -26,7 +26,6 @@
 
             while (isRunning)
             {
-                OutputManager.ShowMainMenuScreen();
                 validUserInput = GetMainMenuValidInput();
                 callAppropriateOperation(validUserInput);
             }
@@ -41,6 +40,7 @@
             {
                 try
                 {
+                    OutputManager.ShowMainMenuScreen();
                     userInput = InputManager.GetInputAndConvertToInt();
                     isInRange(userInput, 1, 7);
                     isInputValid = true;
@@ -48,10 +48,12 @@
                 catch (FormatException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ValueOutOfRangeException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                    pressToContinue();
                 }
             }
 
@@ -95,6 +97,8 @@
             newVehicleToStore = createNewVehicle();
             changeVehicleDetails(ref newVehicleToStore);
             m_CurrentGarage.StoreVehicle(newVehicleToStore, newOwnerToStore);
+            OutputManager.ShowMessage("Successfully entered to garage.");
+            pressToContinue();
         }
 
         private void showFilteredId()
@@ -110,7 +114,7 @@
                 {
                     OutputManager.ShowFilterByVehicleStateScreen();
                     userChoice = InputManager.GetInputAndConvertToInt();
-                    isInRange(userChoice, 1, enumLength);
+                    isInRange(userChoice, 1, enumLength + 1);
                     stringOfIdToPrint = getFilteredVehicleId(userChoice);
                     OutputManager.ShowMessage(stringOfIdToPrint.ToString());
                     pressToContinue();
@@ -119,10 +123,12 @@
                 catch (FormatException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ValueOutOfRangeException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                    pressToContinue();
                 }
             }
         }
@@ -132,7 +138,7 @@
             int maxEnumLength = Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length;
             StringBuilder stringToReturn = new StringBuilder();
 
-            if (i_UserChoice == (maxEnumLength))
+            if (i_UserChoice == (maxEnumLength + 1))
             {
                 stringToReturn =  m_CurrentGarage.GetAllVehiclesIdByFilter();
             }
@@ -167,14 +173,17 @@
                 catch (FormatException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ValueOutOfRangeException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Input out of range. {0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ArgumentException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("{0}", ex.Message));
+                    pressToContinue();
                 }
             }
         }
@@ -198,6 +207,7 @@
                 catch (ArgumentException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("{0}", ex.Message));
+                    pressToContinue();
                 }
             }
         }
@@ -237,14 +247,17 @@
                 catch (FormatException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ValueOutOfRangeException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Input out of range. {0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ArgumentException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("{0}", ex.Message));
+                    pressToContinue();
                 }
             }
         }
@@ -278,10 +291,12 @@
                     vehicleIdInput = InputManager.GetUserInput();
                     OutputManager.ShowMessage(m_CurrentGarage.GetStoredVehicleDetailsString(vehicleIdInput.ToString()));
                     pressToContinue();
+                    isInputValid = true;
                 }
                 catch (ArgumentException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("{0}", ex.Message));
+                    pressToContinue();
                 }
             }
         }
@@ -309,6 +324,7 @@
                 catch(ArgumentException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("{0}", ex.Message));
+                    pressToContinue();
                 }
             }
 
@@ -320,6 +336,7 @@
             bool isInputValid = false;
             int userVehicleInput = 0;
             int userEngineInput = 0;
+            Vehicle vehicleToCreate = null;
 
             while (!isInputValid)
             {
@@ -331,20 +348,28 @@
                     OutputManager.ShowScreen<VehicleFactory.eEngineType>("Please enter the number of the desired engine type:");
                     userEngineInput = InputManager.GetInputAndConvertToInt();
                     isInRange(userEngineInput, 1, Enum.GetValues(typeof(VehicleFactory.eEngineType)).Length);
+                    vehicleToCreate = VehicleFactory.CreateVehicle((VehicleFactory.eVehicleType)userVehicleInput,
+                                                                    (VehicleFactory.eEngineType)userEngineInput);
                     isInputValid = true;
                 }
                 catch (FormatException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ValueOutOfRangeException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Input out of range. {0}", ex.Message));
+                    pressToContinue();
+                }
+                catch (ArgumentException ex)
+                {
+                    OutputManager.ShowErrorMessage(ex.Message);
+                    pressToContinue();
                 }
             }
 
-            return VehicleFactory.CreateVehicle((VehicleFactory.eVehicleType)userVehicleInput,
-                (VehicleFactory.eEngineType)userEngineInput);
+            return vehicleToCreate;
         }
 
         private void changeVehicleDetails(ref Vehicle io_NewVehicleToUpdate)
@@ -392,14 +417,17 @@
                 catch (FormatException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ArgumentException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("{0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ValueOutOfRangeException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Input out of range. {0}", ex.Message));
+                    pressToContinue();
                 }
             }
         }
@@ -424,10 +452,12 @@
                 catch (FormatException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ValueOutOfRangeException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Input out of range. {0}", ex.Message));
+                    pressToContinue();
                 }
             }
         }
@@ -452,10 +482,12 @@
                 catch (FormatException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ValueOutOfRangeException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Input out of range. {0}", ex.Message));
+                    pressToContinue();
                 }
             }
         }
@@ -482,10 +514,12 @@
                 catch (FormatException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("Invalid input. {0}", ex.Message));
+                    pressToContinue();
                 }
                 catch (ArgumentException ex)
                 {
                     OutputManager.ShowErrorMessage(string.Format("{0}", ex.Message));
+                    pressToContinue();
                 }
             }
         }

@@ -25,7 +25,7 @@
 5. Refuel a vehicle by engine type.
 6. Display a vehicle's full detail.
 7. Exit.");
-            clearScreenAndPrint(stringToPrint);
+            clearScreenAndPrint(stringToPrint.ToString());
         }
 
         public static void ShowScreen<T>(string i_MessageBeforeEnum)
@@ -34,7 +34,7 @@
 
             stringToPrint.AppendLine(i_MessageBeforeEnum);
             stringToPrint.Append(getAppropriateEnumMenu<T>());
-            clearScreenAndPrint(stringToPrint);
+            clearScreenAndPrint(stringToPrint.ToString());
         }
 
         public static void ShowFilterByVehicleStateScreen()
@@ -45,12 +45,11 @@
             enumLength = Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length;
             stringToPrint.AppendLine("Please enter the number of the desired filter:");
             stringToPrint.Append(getAppropriateEnumMenu<StoredVehicle.eVehicleState>());
-            stringToPrint.AppendLine();
             stringToPrint.AppendFormat("{0}. No Filter.", (enumLength + 1));
-            clearScreenAndPrint(stringToPrint);
+            clearScreenAndPrint(stringToPrint.ToString());
         }
 
-        private static void clearScreenAndPrint(StringBuilder i_StringToPrint)
+        private static void clearScreenAndPrint(string i_StringToPrint)
         {
             Console.Clear();
             Console.WriteLine(i_StringToPrint);
@@ -58,7 +57,7 @@
 
         public static void ShowMessage(string i_StringToShow)
         {
-            Console.WriteLine(i_StringToShow);
+            clearScreenAndPrint(i_StringToShow);
         }
         
         public static void ShowErrorMessage(string i_StringToShow)

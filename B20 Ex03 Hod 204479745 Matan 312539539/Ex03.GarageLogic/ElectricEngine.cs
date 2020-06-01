@@ -8,6 +8,10 @@
 
         public void Recharge(float i_AmountToRecharge)
         {
+            if (i_AmountToRecharge > r_MaxEnergy * 60)
+            {
+                throw new ValueOutOfRangeException(0, r_MaxEnergy * 60, "Engine energy");
+            }
             float amountToRechargeInHours = i_AmountToRecharge / 60f;
             rechargeEnergy(amountToRechargeInHours);
         }

@@ -1,5 +1,6 @@
 ﻿namespace Ex03.GarageLogic
 {
+    using System;
     using System.Collections.Generic;
 
     public static class VehicleFactory
@@ -60,6 +61,8 @@
                     createdElectricEngine = new ElectricEngine(0, 1.2f);
                     createdVehicle = createMotorbike(createdElectricEngine);
                     break;
+                case eVehicleType.Truck:
+                    throw new ArgumentException("Cannot create a truck with an electric engine.");
             }
 
             return createdVehicle;
