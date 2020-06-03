@@ -160,8 +160,12 @@
             {
                 try
                 {
-                    OutputManager.ShowMessage("Please enter desired vehicle's id:");
+                    OutputManager.ShowMessage("Please enter desired vehicle's id, enter Q to go back.");
                     vehicleIdInput = InputManager.GetUserInput();
+                    if (checkIfPressedQuit(vehicleIdInput))
+                    {
+                        break;
+                    }
                     OutputManager.ShowScreen<StoredVehicle.eVehicleState>("Please enter the number of the desired vehicle's new state:");
                     stateChoiceInput = InputManager.GetInputAndConvertToInt();
                     isInRange(stateChoiceInput, 1, Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length);
@@ -197,8 +201,12 @@
             {
                 try
                 {
-                    OutputManager.ShowMessage("Please enter the desired vehicle id");
+                    OutputManager.ShowMessage("Please enter the desired vehicle id, enter Q to go back.");
                     vehicleIdInput = InputManager.GetUserInput();
+                    if (checkIfPressedQuit(vehicleIdInput))
+                    {
+                        break;
+                    }
                     m_CurrentGarage.InflateVehicleWheelsToMaximumCapacity(vehicleIdInput.ToString());
                     OutputManager.ShowMessage("Successully inflated all the wheels.");
                     pressToContinue();
@@ -224,8 +232,12 @@
             {
                 try
                 {
-                    OutputManager.ShowMessage("Please enter desired vehicle id:");
+                    OutputManager.ShowMessage("Please enter desired vehicle id, enter Q to go back.");
                     vehicleIdInput = InputManager.GetUserInput();
+                    if (checkIfPressedQuit(vehicleIdInput))
+                    {
+                        break;
+                    }
                     OutputManager.ShowScreen<VehicleFactory.eEngineType>("Enter the type of engine your vehicle has:");
                     fuelTypeInput = InputManager.GetInputAndConvertToInt();
                     isInRange(fuelTypeInput, 1, enumLength);
@@ -287,8 +299,12 @@
             {
                 try
                 {
-                    OutputManager.ShowMessage("Please enter the desired vehicle id.");
+                    OutputManager.ShowMessage("Please enter the desired vehicle id, enter Q to go back.");
                     vehicleIdInput = InputManager.GetUserInput();
+                    if (checkIfPressedQuit(vehicleIdInput))
+                    {
+                        break;
+                    }
                     OutputManager.ShowMessage(m_CurrentGarage.GetStoredVehicleDetailsString(vehicleIdInput.ToString()));
                     pressToContinue();
                     isInputValid = true;
@@ -537,6 +553,11 @@
             Console.WriteLine("Press any key to continue");
             InputManager.GetUserInput();
             Console.Clear();
+        }
+
+        public bool checkIfPressedQuit(StringBuilder i_UserInput)
+        {
+            return i_UserInput.ToString().CompareTo("Q") == 0;
         }
     }
 }
