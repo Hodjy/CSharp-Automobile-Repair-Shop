@@ -47,7 +47,7 @@
 
         public override string ToString()
         {
-            return string.Format(@"Name: {0},
+            return string.Format(@"Name: {0}
 Phone Number: {1}",
 m_Name,
 m_PhoneNumber);
@@ -72,6 +72,11 @@ m_PhoneNumber);
         private bool checkIfStringIsOnlyDigits(string i_StringToCheck)
         {
             bool isOnlyDigits = true;
+            
+            if (string.IsNullOrEmpty(i_StringToCheck))
+            {
+                isOnlyDigits = false;
+            }
 
             foreach(char c in i_StringToCheck)
             {

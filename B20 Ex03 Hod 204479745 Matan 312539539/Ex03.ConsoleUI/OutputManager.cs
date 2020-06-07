@@ -40,7 +40,7 @@
         public static void ShowFilterByVehicleStateScreen()
         {
             StringBuilder stringToPrint = new StringBuilder();
-            int           enumLength;
+            int           enumLength = 0;
 
             enumLength = Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length;
             stringToPrint.AppendLine("Please enter the number of the desired filter:");
@@ -67,7 +67,7 @@
 
         private static StringBuilder getAppropriateEnumMenu<T>()
         {
-            int menuIndex = 1;
+            int           menuIndex = 1;
             StringBuilder stringToPrint = new StringBuilder();
 
             foreach (string enumMember in Enum.GetNames(typeof(T)))

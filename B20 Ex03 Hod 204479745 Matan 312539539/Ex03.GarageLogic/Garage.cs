@@ -96,7 +96,7 @@
                 {
                     vehiclesIdStringList.AppendFormat(string.Format(@"{0,3}. {1,13} {2,-6}
 ", i, entry.Value.Vehicle.ID, entry.Value.VehicleState));
-                    i++;
+                    i++;                                                                      // i++ only when there is a vehicle to show
                 }
             }
 
@@ -108,6 +108,7 @@
             StoredVehicle vehicleToShowDetails;
 
             vehicleToShowDetails = getStoredVehicle(i_VehicleId);
+
             return vehicleToShowDetails.ToString();
         }
 

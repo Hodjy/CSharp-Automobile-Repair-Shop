@@ -48,7 +48,7 @@
 
         private static Vehicle createElectricVehicle(eVehicleType i_VehicleType)
         {
-            Vehicle createdVehicle = null;
+            Vehicle        createdVehicle = null;
             ElectricEngine createdElectricEngine = null;
 
             switch (i_VehicleType)

@@ -23,6 +23,11 @@
             }
             set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Wheel manufacturer cannot be null or empty.");
+                }
+
                 m_ManufacturerName = value;
             }
         }

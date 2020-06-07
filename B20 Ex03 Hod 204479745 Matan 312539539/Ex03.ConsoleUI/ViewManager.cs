@@ -21,7 +21,7 @@
 
         private void runGarageOperation()
         {
-            int validUserInput = 0;
+            int  validUserInput = 0;
             bool isRunning = true;
 
             while (isRunning)
@@ -34,7 +34,7 @@
         private int GetMainMenuValidInput()
         {
             bool isInputValid = false;
-            int userInput = 0;
+            int  userInput = 0;
 
             while (!isInputValid)
             {
@@ -91,7 +91,7 @@
         private void storeNewVehicleInGarage()
         {
             VehicleOwner newOwnerToStore = new VehicleOwner();
-            Vehicle newVehicleToStore = null;
+            Vehicle      newVehicleToStore = null;
 
             newOwnerToStore = createNewVehicleOwner();
             newVehicleToStore = createNewVehicle();
@@ -135,7 +135,7 @@
 
         private StringBuilder getFilteredVehicleId(int i_UserChoice)
         {
-            int maxEnumLength = Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length;
+            int           maxEnumLength = Enum.GetNames(typeof(StoredVehicle.eVehicleState)).Length;
             StringBuilder stringToReturn = new StringBuilder();
 
             if (i_UserChoice == (maxEnumLength + 1))
@@ -194,7 +194,7 @@
 
         private void inflateAirInAllWheels()
         {
-            bool isInputValid = false;
+            bool          isInputValid = false;
             StringBuilder vehicleIdInput = null;
 
             while(!isInputValid)
@@ -292,7 +292,7 @@
 
         private void showVehicleDetails()
         {
-            bool isInputValid = false;
+            bool          isInputValid = false;
             StringBuilder vehicleIdInput = null;
 
             while(!isInputValid)
@@ -325,7 +325,7 @@
         private VehicleOwner createNewVehicleOwner()
         {
             VehicleOwner newVehicleOwner = new VehicleOwner();
-            bool isInputValid = false;
+            bool         isInputValid = false;
 
             while (!isInputValid)
             {
@@ -349,9 +349,9 @@
 
         private Vehicle createNewVehicle()
         {
-            bool isInputValid = false;
-            int userVehicleInput = 0;
-            int userEngineInput = 0;
+            bool    isInputValid = false;
+            int     userVehicleInput = 0;
+            int     userEngineInput = 0;
             Vehicle vehicleToCreate = null;
 
             while (!isInputValid)
@@ -413,14 +413,14 @@
         {
             bool isInputValid = false;
 
-            OutputManager.ShowMessage("Please enter the vehicle license number");
-            io_NewVehicleToUpdate.ID = InputManager.GetUserInput().ToString();
-            OutputManager.ShowMessage("Please enter the vehicle model name");
-            io_NewVehicleToUpdate.ModelName = InputManager.GetUserInput().ToString();
             while (!isInputValid)
             {
                 try
                 {
+                    OutputManager.ShowMessage("Please enter the vehicle license number");
+                    io_NewVehicleToUpdate.ID = InputManager.GetUserInput().ToString();
+                    OutputManager.ShowMessage("Please enter the vehicle model name");
+                    io_NewVehicleToUpdate.ModelName = InputManager.GetUserInput().ToString();
                     OutputManager.ShowMessage("Please enter current engine energy.");
                     io_NewVehicleToUpdate.Engine.CurrentEnergy = InputManager.GetInputAndConvertToFloat();
                     io_NewVehicleToUpdate.calculateCurrentEnergyPercent();
@@ -451,7 +451,7 @@
         private void getCarProperties(ref Car io_CarToUpdate)
         {
             bool isInputValid = false;
-            int userInput = 0;
+            int  userInput = 0;
 
             while (!isInputValid)
             {
@@ -481,7 +481,7 @@
         private void getMotorbikeProperties(ref Motorbike io_MotorbikeToUpdate)
         {
             bool isInputValid = false;
-            int userInput = 0;
+            int  userInput = 0;
 
             while (!isInputValid)
             {
@@ -511,7 +511,7 @@
         private void getTruckProperties(ref Truck io_TruckToUpdate)
         {
             bool isInputValid = false;
-            int userInput = 0;
+            int  userInput = 0;
 
             while (!isInputValid)
             {

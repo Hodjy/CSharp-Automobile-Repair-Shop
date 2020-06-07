@@ -12,6 +12,7 @@
             {
                 throw new ValueOutOfRangeException(0, r_MaxEnergy * 60, "Engine energy");
             }
+
             float amountToRechargeInHours = i_AmountToRecharge / 60f;
             rechargeEnergy(amountToRechargeInHours);
         }

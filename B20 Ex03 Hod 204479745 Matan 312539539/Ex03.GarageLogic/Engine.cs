@@ -4,7 +4,7 @@
 
     public abstract class Engine
     {
-        protected float m_CurrentEnergy;
+        protected float          m_CurrentEnergy;
         protected readonly float r_MaxEnergy;
 
         public Engine(float i_CurrentEnergy, float i_MaxEnergy)

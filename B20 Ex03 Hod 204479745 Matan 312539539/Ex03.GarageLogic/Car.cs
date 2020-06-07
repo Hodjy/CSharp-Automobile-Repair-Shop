@@ -2,7 +2,7 @@
 {
     public class Car : Vehicle
     {
-        private int m_AmountOfDoors;
+        private int    m_AmountOfDoors;
         private eColor m_CarColor;
 
         public Car(string i_Id, string i_ModelName, Engine i_Engine, float i_MaxWheelsAirPressure, int i_AmountOfDoors, eColor i_CarColor) :

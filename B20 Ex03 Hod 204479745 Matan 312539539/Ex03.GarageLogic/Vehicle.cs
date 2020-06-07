@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Text;
+    using System;
 
     public abstract class Vehicle
     {
@@ -29,6 +30,11 @@
             }
             set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("ID cannot be null or empty.");
+                }
+
                 m_Id = value;
             }
         }
@@ -41,6 +47,11 @@
             }
             set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Model name cannot be null or empty.");
+                }
+
                 m_ModelName = value;
             }
         }
